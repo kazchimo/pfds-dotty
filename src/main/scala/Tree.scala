@@ -41,4 +41,5 @@ object Tree:
     def withLeft[T: Ordering](l: Tree[T], e: T): Tree[T] = Node(l, e, Leaf)
 
     def withRight[T: Ordering](e: T, r: Tree[T]): Tree[T] = Node(Leaf, e, r)
+end Tree
 
