@@ -53,7 +53,7 @@ class LinkedListSpec extends AnyFunSuite with Matchers :
   }
 
   test("#suffixes") {
-//    Nil.suffixes shouldBe Nil
+    Nil.suffixes shouldBe Nil
     LinkedList(1, 2, 3).suffixes shouldBe LinkedList(
       LinkedList(1, 2, 3), LinkedList(2, 3), LinkedList(3)
     )

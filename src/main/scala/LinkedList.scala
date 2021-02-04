@@ -3,7 +3,7 @@ package pfds
 enum LinkedList[+T]:
   case Nil extends LinkedList[Nothing]
   case Cons(x: T, s: LinkedList[T]) extends LinkedList[T]
-  
+
   def isEmpty: Boolean = this match
     case Nil => true
     case _ => false
@@ -19,7 +19,7 @@ enum LinkedList[+T]:
   def ++[S >: T](ys: LinkedList[S]): LinkedList[S] = this match
     case Nil => ys
     case Cons(x, s) => x :: (s ++ ys)
-  
+
   def ::[S >: T](y: S): LinkedList[S] = Cons(y, this)
 
   def update[S >: T](i: Int, y: S): LinkedList[S] = this match
@@ -43,4 +43,4 @@ object LinkedList:
     case Seq() => Nil
     case Seq(x, s: _*) => x :: apply(s: _*)
 end LinkedList
-  
+
