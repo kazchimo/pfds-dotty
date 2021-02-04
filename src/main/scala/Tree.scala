@@ -35,3 +35,5 @@ object Tree:
   given Ordering[Nothing] = new Ordering[Nothing] :
     override def compare(x: Nothing, y: Nothing): Int = 0
 
+  def just[T: Ordering](x: T): Tree[T] = Node(Leaf, x, Leaf)
+
