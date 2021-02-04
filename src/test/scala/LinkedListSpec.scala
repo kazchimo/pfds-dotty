@@ -4,19 +4,20 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.funsuite.AnyFunSuite
 import LinkedList._
 
-class LinkedListSpec extends AnyFunSuite with Matchers:
+class LinkedListCompanionSpec extends AnyFunSuite with Matchers:
   test("#empty") {
     LinkedList.empty[Int] shouldBe LinkedList.Nil
   }
-  
+
   test("#cons") {
     LinkedList.cons(1, Nil) shouldBe Cons(1, Nil)
   }
-  
+
   test("#apply") {
     LinkedList(1, 2, 3) shouldBe Cons(1, Cons(2, Cons(3, Nil)))
   }
 
+class LinkedListSpec extends AnyFunSuite with Matchers:
   test("#isEmpty") {
     Nil.isEmpty shouldBe true
     Cons(1, Nil).isEmpty shouldBe false
