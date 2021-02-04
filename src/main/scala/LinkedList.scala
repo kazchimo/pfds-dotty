@@ -24,6 +24,13 @@ enum LinkedList[+T]:
     case Cons(x, s) => Cons(x, s ++ ys)
   }
 
+  def update[S >: T](i: Int, y: S): LinkedList[S] = this match {
+    case Nil => throw Exception("Empty LinkedList")
+    case Cons(x, xs) if i == 0 => Cons(y, xs)
+    case Cons(x, xs) if i > 0 => Cons(x, xs.update(i - 1, y))
+    case _ => throw Exception("Negative index update")
+  }
+
 object LinkedList:
   def empty[T]: LinkedList[T] = Nil
 
