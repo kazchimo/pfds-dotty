@@ -18,7 +18,7 @@ enum Tree[+T: Ordering]:
 
     this match
       case Leaf => false
-      case Node(l, y, r) => if sord.gt(x, y) then l.member(x) else go(y, r)
+      case Node(_, y, _) => go(y, this)
   }
 
   def insert[S >: T](x: S)(using sord: Ordering[S]): Tree[S] = {
