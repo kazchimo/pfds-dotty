@@ -26,3 +26,7 @@ class NodeCompanionSpec extends AnyFunSuite with Matchers:
   test("#withLeft") {
     Node.withLeft(Tree.just(1), 2) shouldBe Node(Tree.just(1), 2, Leaf)
   }
+  
+  test("#withRight") {
+    Node.withRight(1, Tree.just(2)) shouldBe Node.withRight(1, Tree.just(2))
+  }
