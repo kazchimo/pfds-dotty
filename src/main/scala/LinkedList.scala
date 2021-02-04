@@ -8,6 +8,8 @@ enum LinkedList[+T]:
     case Nil => true
     case _ => false
   }
-  
+
 object LinkedList:
   def empty[T]: LinkedList[T] = Nil
+
+  def cons[T](x: T, s: LinkedList[T]): LinkedList[T] = LinkedList.Cons(x, s)

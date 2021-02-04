@@ -8,6 +8,10 @@ class LinkedListSpec extends AnyFunSuite with Matchers:
   test("#empty") {
     LinkedList.empty[Int] shouldBe LinkedList.Nil
   }
+  
+  test("#cons") {
+    LinkedList.cons(1, Nil) shouldBe Cons(1, Nil)
+  }
 
   test("#isEmpty") {
     Nil.isEmpty shouldBe true
