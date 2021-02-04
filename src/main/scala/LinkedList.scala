@@ -31,6 +31,7 @@ enum LinkedList[+T]:
   def suffixes: LinkedList[LinkedList[T]] = this match
     case Nil => Nil
     case Cons(_, xs) => this :: xs.suffixes
+end LinkedList
 
 
 object LinkedList:
@@ -41,4 +42,5 @@ object LinkedList:
   def apply[T](xs: T*): LinkedList[T] = xs match
     case Seq() => Nil
     case Seq(x, s: _*) => x :: apply(s: _*)
+end LinkedList
   
