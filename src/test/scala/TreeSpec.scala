@@ -13,7 +13,7 @@ class TreeSpec extends AnyFunSuite with Matchers:
 
   test("#insert") {
     Leaf.insert(1) shouldBe Tree.just(1)
-    Tree.just(0).insert(1) shouldBe Node(Leaf, 0, Tree.just(1))
+    Tree.just(0).insert(1) shouldBe Node.withRight(0, Tree.just(1))
     Tree.just(0).insert(-1) shouldBe Node.withLeft(Tree.just(-1), 0)
   }
 
