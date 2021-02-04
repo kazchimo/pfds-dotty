@@ -2,7 +2,7 @@ package pfds
 
 enum LinkedList[+T]:
   case Nil extends LinkedList[Nothing]
-  case Cons(x: T, s: LinkedList[T])
+  case Cons(x: T, s: LinkedList[T]) extends LinkedList[T]
 
   def isEmpty: Boolean = this match {
     case Nil => true
