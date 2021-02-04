@@ -4,17 +4,17 @@ enum LinkedList[+T]:
   case Nil extends LinkedList[Nothing]
   case Cons(x: T, s: LinkedList[T])
 
-  def isEmpty = this match {
+  def isEmpty: Boolean = this match {
     case Nil => true
     case _ => false
   }
 
-  def head = this match {
+  def head: T = this match {
     case Nil => throw Exception("Empty LinkedList")
     case Cons(x, _) => x
   }
 
-  def tail = this match {
+  def tail: LinkedList[T] = this match {
     case Nil => throw Exception("Empty LinkedList")
     case Cons(_, s) => s
   }
