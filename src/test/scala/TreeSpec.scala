@@ -23,6 +23,12 @@ class TreeCompanionSpec extends AnyFunSuite with Matchers:
   test("#just") {
     Tree.just(1) shouldBe Tree.just(1)
   }
+  
+  test("#complete") {
+    Tree.complete(1, 2) shouldBe same(1)
+    Tree.complete(1, 0) shouldBe Leaf
+    the[Exception] thrownBy Tree.complete(1, -1)
+  }
 end TreeCompanionSpec
 
 class NodeCompanionSpec extends AnyFunSuite with Matchers:

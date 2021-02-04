@@ -39,17 +39,26 @@ enum Tree[+T: Ordering]:
     }
   }
 end Tree
-  
+
 
 object Tree:
   given Ordering[Nothing] = new Ordering[Nothing] :
     override def compare(x: Nothing, y: Nothing): Int = 0
 
   def just[T: Ordering](x: T): Tree[T] = Node(Leaf, x, Leaf)
+  
+  def same[T: Ordering](x: T): Tree[T] = Node(just(x), x, just(x))
 
   def withLeft[T: Ordering](l: Tree[T], e: T): Tree[T] = Node(l, e, Leaf)
 
   def withRight[T: Ordering](e: T, r: Tree[T]): Tree[T] = Node(Leaf, e, r)
+
+  def complete[T: Ordering](x: T, d: Int): Tree[T] = d match
+    case 0 => Leaf
+    case _ if d > 0 =>
+      val cmp = complete(x, d - 1)
+      Node(cmp, x, cmp)
+    case _ => throw Exception("Negative depth of Tree")
 
   object SameValue extends Exception
 end Tree
