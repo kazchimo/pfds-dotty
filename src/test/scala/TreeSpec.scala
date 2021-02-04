@@ -7,17 +7,17 @@ import Tree._
 class TreeSpec extends AnyFunSuite with Matchers:
   test("#member") {
     Leaf.member(1) shouldBe false
-    Node(Leaf, 1, Leaf).member(1) shouldBe true
-    Node(Leaf, 0, Leaf).member(1) shouldBe false
+    Tree.just(1).member(1) shouldBe true
+    Tree.just(0).member(1) shouldBe false
   }
 
   test("#insert") {
-    Leaf.insert(1) shouldBe Node(Leaf, 1, Leaf)
-    Node(Leaf, 0, Leaf).insert(1) shouldBe Node(Leaf, 0, Node(Leaf, 1, Leaf))
-    Node(Leaf, 0, Leaf).insert(-1) shouldBe Node(Node(Leaf, -1, Leaf), 0, Leaf)
+    Leaf.insert(1) shouldBe Tree.just(1)
+    Tree.just(0).insert(1) shouldBe Node(Leaf, 0, Tree.just(1))
+    Tree.just(0).insert(-1) shouldBe Node(Tree.just(-1), 0, Leaf)
   }
 
 class TreeCompanionSpec extends AnyFunSuite with Matchers:
   test("#just") {
-    Tree.just(1) shouldBe Node(Leaf, 1, Leaf)
+    Tree.just(1) shouldBe Tree.just(1)
   }
