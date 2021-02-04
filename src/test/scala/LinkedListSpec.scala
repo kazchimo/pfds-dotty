@@ -10,34 +10,34 @@ class LinkedListCompanionSpec extends AnyFunSuite with Matchers:
   }
 
   test("#cons") {
-    LinkedList.cons(1, Nil) shouldBe Cons(1, Nil)
+    LinkedList.cons(1, Nil) shouldBe LinkedList(1)
   }
 
   test("#apply") {
-    LinkedList(1, 2, 3) shouldBe Cons(1, Cons(2, Cons(3, Nil)))
+    LinkedList(1, 2, 3) shouldBe LinkedList(1, 2, 3)
     LinkedList() shouldBe Nil
   }
 
 class LinkedListSpec extends AnyFunSuite with Matchers:
   test("#isEmpty") {
     Nil.isEmpty shouldBe true
-    Cons(1, Nil).isEmpty shouldBe false
+    LinkedList(1).isEmpty shouldBe false
   }
 
   test("#head") {
     the[Exception] thrownBy Nil.head
-    Cons(1, Nil).head shouldBe 1
+    LinkedList(1).head shouldBe 1
   }
 
   test("#tail") {
     the[Exception] thrownBy Nil.tail
-    Cons(1, Nil).tail shouldBe Nil
+    LinkedList(1).tail shouldBe Nil
   }
 
   test("#++") {
-    Nil ++ Cons(1, Nil) shouldBe Cons(1, Nil)
-    Cons(1, Nil) ++ Nil shouldBe Cons(1, Nil)
-    Cons(1, Nil) ++ Cons(2, Nil) shouldBe Cons(1, Cons(2, Nil))
+    Nil ++ LinkedList(1) shouldBe LinkedList(1)
+    LinkedList(1) ++ Nil shouldBe LinkedList(1)
+    LinkedList(1) ++ LinkedList(2) shouldBe LinkedList(1, 2)
   }
   
 
