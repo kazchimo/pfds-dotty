@@ -19,6 +19,11 @@ enum LinkedList[+T]:
     case Cons(_, s) => s
   }
 
+  def ++[S >: T](ys: LinkedList[S]): LinkedList[S] = this match {
+    case Nil => ys
+    case Cons(x, s) => Cons(x, s ++ ys)
+  }
+
 object LinkedList:
   def empty[T]: LinkedList[T] = Nil
 

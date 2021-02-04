@@ -27,5 +27,11 @@ class LinkedListSpec extends AnyFunSuite with Matchers:
     the[Exception] thrownBy Nil.tail
     Cons(1, Nil).tail shouldBe Nil
   }
+
+  test("#++") {
+    Nil ++ Cons(1, Nil) shouldBe Cons(1, Nil)
+    Cons(1, Nil) ++ Nil shouldBe Cons(1, Nil)
+    Cons(1, Nil) ++ Cons(2, Nil) shouldBe Cons(1, Cons(2, Nil))
+  }
   
 
