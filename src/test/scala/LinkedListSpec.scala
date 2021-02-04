@@ -15,6 +15,7 @@ class LinkedListCompanionSpec extends AnyFunSuite with Matchers:
 
   test("#apply") {
     LinkedList(1, 2, 3) shouldBe Cons(1, Cons(2, Cons(3, Nil)))
+    LinkedList() shouldBe Nil
   }
 
 class LinkedListSpec extends AnyFunSuite with Matchers:
