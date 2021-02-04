@@ -14,6 +14,11 @@ enum LinkedList[+T]:
     case Cons(x, _) => x
   }
 
+  def tail = this match {
+    case Nil => throw Exception("Empty LinkedList")
+    case Cons(_, s) => s
+  }
+
 object LinkedList:
   def empty[T]: LinkedList[T] = Nil
 
