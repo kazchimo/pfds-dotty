@@ -13,9 +13,9 @@ class TreeSpec extends AnyFunSuite with Matchers:
 
   test("#insert") {
     Leaf.insert(1) shouldBe Tree.just(1)
-    Tree.just(0).insert(1) shouldBe Node.withRight(0, Tree.just(1))
+    Tree.just(0).insert(1) shouldBe Tree.withRight(0, Tree.just(1))
     Tree.just(0).insert(0) shouldBe Tree.just(0)
-    Tree.just(0).insert(-1) shouldBe Node.withLeft(Tree.just(-1), 0)
+    Tree.just(0).insert(-1) shouldBe Tree.withLeft(Tree.just(-1), 0)
   }
 end TreeSpec
 
@@ -27,10 +27,10 @@ end TreeCompanionSpec
 
 class NodeCompanionSpec extends AnyFunSuite with Matchers:
   test("#withLeft") {
-    Node.withLeft(Tree.just(1), 2) shouldBe Node(Tree.just(1), 2, Leaf)
+    Tree.withLeft(Tree.just(1), 2) shouldBe Node(Tree.just(1), 2, Leaf)
   }
   
   test("#withRight") {
-    Node.withRight(1, Tree.just(2)) shouldBe Node.withRight(1, Tree.just(2))
+    Tree.withRight(1, Tree.just(2)) shouldBe Tree.withRight(1, Tree.just(2))
   }
 end NodeCompanionSpec

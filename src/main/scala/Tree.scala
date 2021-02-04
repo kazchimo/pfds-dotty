@@ -47,10 +47,9 @@ object Tree:
 
   def just[T: Ordering](x: T): Tree[T] = Node(Leaf, x, Leaf)
 
-  object Node:
-    def withLeft[T: Ordering](l: Tree[T], e: T): Tree[T] = Node(l, e, Leaf)
+  def withLeft[T: Ordering](l: Tree[T], e: T): Tree[T] = Node(l, e, Leaf)
 
-    def withRight[T: Ordering](e: T, r: Tree[T]): Tree[T] = Node(Leaf, e, r)
+  def withRight[T: Ordering](e: T, r: Tree[T]): Tree[T] = Node(Leaf, e, r)
 
   object SameValue extends Exception
 end Tree
