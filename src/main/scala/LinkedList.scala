@@ -19,6 +19,8 @@ enum LinkedList[+T]:
   def ++[S >: T](ys: LinkedList[S]): LinkedList[S] = this match
     case Nil => ys
     case Cons(x, s) => Cons(x, s ++ ys)
+  
+  def ::[S >: T](y: S): LinkedList[S] = Cons(y, this)
 
   def update[S >: T](i: Int, y: S): LinkedList[S] = this match
     case Nil => throw Exception("Empty LinkedList")

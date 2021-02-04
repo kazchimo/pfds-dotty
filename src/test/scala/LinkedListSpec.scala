@@ -39,6 +39,11 @@ class LinkedListSpec extends AnyFunSuite with Matchers:
     LinkedList(1) ++ Nil shouldBe LinkedList(1)
     LinkedList(1) ++ LinkedList(2) shouldBe LinkedList(1, 2)
   }
+  
+  test("#::") {
+    1 :: Nil shouldBe LinkedList(1)
+    1 :: LinkedList(2) shouldBe LinkedList(1, 2)
+  }
 
   test("#update") {
     the[Exception] thrownBy Nil.update(1, 2)
