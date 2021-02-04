@@ -21,3 +21,8 @@ class TreeCompanionSpec extends AnyFunSuite with Matchers:
   test("#just") {
     Tree.just(1) shouldBe Tree.just(1)
   }
+
+class NodeCompanionSpec extends AnyFunSuite with Matchers:
+  test("#withLeft") {
+    Node.withLeft(Tree.just(1), 2) shouldBe Node(Tree.just(1), 2, Leaf)
+  }

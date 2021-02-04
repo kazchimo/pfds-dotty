@@ -37,3 +37,6 @@ object Tree:
 
   def just[T: Ordering](x: T): Tree[T] = Node(Leaf, x, Leaf)
 
+  object Node:
+    def withLeft[T: Ordering](l: Tree[T], e: T): Tree[T] = Node(l, e, Leaf)
+
