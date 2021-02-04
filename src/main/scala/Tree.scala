@@ -21,20 +21,25 @@ enum Tree[+T: Ordering]:
       case Node(l, y, r) => if sord.gt(x, y) then l.member(x) else go(y, r)
   }
 
-  def insert[S >: T](x: S)(using sord: Ordering[S]): Tree[S] = try {
-    this match
-      case Leaf => Node(Leaf, x, Leaf)
+  def insert[S >: T](x: S)(using sord: Ordering[S]): Tree[S] = {
+    def go(cand: S, t: Tree[S]): Tree[S] = t match
+      case Leaf => if cand == x then throw SameValue else Node(Leaf, x, Leaf)
       case Node(l, y, r) =>
         if sord.gt(x, y) then
-          Node(l, y, r.insert(x))
-        else if sord.lt(x, y) then
-          Node(l.insert(x), y, r)
+          Node(l, y, go(cand, r))
         else
-          throw SameValue
-  } catch {
-    case SameValue => this
+          Node(go(y, l), y, r)
+
+    try {
+      this match
+        case Leaf => Tree.just(x)
+        case Node(_, y, _) => go(y, this)
+    } catch {
+      case SameValue => this
+    }
   }
 end Tree
+  
 
 object Tree:
   given Ordering[Nothing] = new Ordering[Nothing] :
