@@ -17,5 +17,10 @@ class LinkedListSpec extends AnyFunSuite with Matchers:
     Nil.isEmpty shouldBe true
     Cons(1, Nil).isEmpty shouldBe false
   }
+
+  test("#head") {
+    the[Exception] thrownBy Nil.head
+    Cons(1, Nil).head shouldBe 1
+  }
   
 
