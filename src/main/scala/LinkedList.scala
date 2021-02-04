@@ -3,7 +3,7 @@ package pfds
 enum LinkedList[+T]:
   case Nil extends LinkedList[Nothing]
   case Cons(x: T, s: LinkedList[T]) extends LinkedList[T]
-
+  
   def isEmpty: Boolean = this match
     case Nil => true
     case _ => false
@@ -27,6 +27,10 @@ enum LinkedList[+T]:
     case Cons(x, xs) if i == 0 => y :: xs
     case Cons(x, xs) if i > 0 => x :: xs.update(i - 1, y)
     case _ => throw Exception("Negative index update")
+
+  def suffixes: LinkedList[LinkedList[T]] = this match
+    case Nil => Nil
+    case Cons(_, xs) => this :: xs.suffixes
 
 
 object LinkedList:
