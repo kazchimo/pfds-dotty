@@ -1,6 +1,5 @@
 package pfds
 
-import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.funsuite.AnyFunSuite
 import LinkedList._

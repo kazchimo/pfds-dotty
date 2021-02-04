@@ -1,6 +1,5 @@
-given nothingOrdered: Ordering[Nothing] = new Ordering[Nothing]:
-  override def compare(x: Nothing, y: Nothing): Int = 0
-  
+package pfds
+
 enum Tree[+T](implicit ord: Ordering[T]):
   case Leaf 
   case Node(left: Tree[T], elem: T,  right: Tree[T])(implicit ord: Ordering[T]) 
@@ -15,3 +14,9 @@ enum Tree[+T](implicit ord: Ordering[T]):
         else 
             this
 end Tree
+
+object Tree:
+  given Ordering[Nothing] = new Ordering[Nothing]:
+    override def compare(x: Nothing, y: Nothing): Int = 0
+  
+  
