@@ -28,3 +28,8 @@ object LinkedList:
   def empty[T]: LinkedList[T] = Nil
 
   def cons[T](x: T, s: LinkedList[T]): LinkedList[T] = LinkedList.Cons(x, s)
+
+  def apply[T](xs: T*): LinkedList[T] = xs match {
+    case Seq() => Nil
+    case Seq(x, s: _*) => LinkedList.Cons(x, apply(s: _*))
+  }
