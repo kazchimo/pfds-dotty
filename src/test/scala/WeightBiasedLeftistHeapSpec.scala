@@ -21,6 +21,11 @@ class WeightBiasedLeftistHeapSpec extends AnyFunSuite with Matchers:
     the[Exception] thrownBy Leaf.min
     triangle(3, 2, 1).min shouldBe 1
   }
+  
+  test("#deleteMin") {
+    the[Exception] thrownBy Leaf.deleteMin
+    triangle(2, 3, 1).deleteMin shouldBe Node(2, 2, Node(1, 3, Leaf, Leaf), Leaf)
+  }
 end WeightBiasedLeftistHeapSpec
 
 class WeightBiasedLeftistHeapCompanionSpec extends AnyFunSuite with Matchers:
