@@ -3,6 +3,7 @@ package pfds
 import scala.annotation.tailrec
 import Tree._
 
+/** Binary Tree which store values by symmetric order */
 enum Tree[+T: Ordering]:
   case Leaf
   case Node(left: Tree[T], elem: T, right: Tree[T])(implicit ord: Ordering[T])
