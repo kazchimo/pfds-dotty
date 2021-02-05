@@ -1,8 +1,9 @@
-package pfds
+package stack
 
-import org.scalatest.matchers.should.Matchers
 import org.scalatest.funsuite.AnyFunSuite
-import LinkedList._
+import org.scalatest.matchers.should.Matchers
+import stack.LinkedList
+import stack.LinkedList._
 
 class LinkedListCompanionSpec extends AnyFunSuite with Matchers :
   test("#empty") {

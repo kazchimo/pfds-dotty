@@ -1,4 +1,6 @@
-package pfds
+package stack
+
+import LinkedList._
 
 enum LinkedList[+T]:
   case Nil extends LinkedList[Nothing]
