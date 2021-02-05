@@ -1,8 +1,9 @@
-package pfds
+package heap
 
-import org.scalatest.matchers.should.Matchers
+import heap.WeightBiasedLeftistHeap
+import heap.WeightBiasedLeftistHeap._
 import org.scalatest.funsuite.AnyFunSuite
-import WeightBiasedLeftistHeap._
+import org.scalatest.matchers.should.Matchers
 
 class WeightBiasedLeftistHeapSpec extends AnyFunSuite with Matchers:
   test("#weight") {

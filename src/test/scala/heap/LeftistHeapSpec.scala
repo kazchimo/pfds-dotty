@@ -1,8 +1,9 @@
-package pfds
+package heap
 
-import org.scalatest.matchers.should.Matchers
+import heap.LeftistHeap
+import heap.LeftistHeap._
 import org.scalatest.funsuite.AnyFunSuite
-import LeftistHeap._
+import org.scalatest.matchers.should.Matchers
 
 class LeftistHeapSpec extends AnyFunSuite with Matchers:
   test("#merge") {

@@ -1,4 +1,7 @@
-package pfds
+package heap
+
+import heap.Heap
+import heap.LeftistHeap._
 import LeftistHeap._
 
 import scala.annotation.tailrec

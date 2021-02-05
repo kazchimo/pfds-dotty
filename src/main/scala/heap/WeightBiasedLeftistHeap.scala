@@ -1,5 +1,7 @@
-package pfds
+package heap
 
+import heap.Heap
+import heap.WeightBiasedLeftistHeap._
 import WeightBiasedLeftistHeap._
 
 /** Binary Tree which has weight-biased leftist property */
