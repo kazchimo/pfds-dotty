@@ -20,6 +20,10 @@ class LeftistHeapSpec extends AnyFunSuite with Matchers:
 end LeftistHeapSpec
 
 class LeftistHeapCompanionSpec extends AnyFunSuite with Matchers:
+  test("#empty") {
+    LeftistHeap.empty shouldBe Leaf
+  }
+  
   test("#just") {
     LeftistHeap.just(1) shouldBe Node(1, 1, Leaf, Leaf)
   }

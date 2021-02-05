@@ -19,7 +19,7 @@ enum LeftistHeap[+T: Ordering]:
    * Rank of LeftistHeap which represents a length of right spine.
    * Right spine is the rightest path to empty Node.
    * So should return (number of values on right spine) + 1
-   * 
+   *
    * Figure:
    *       .
    *      / \    .rank
@@ -30,28 +30,30 @@ enum LeftistHeap[+T: Ordering]:
   def rank = this match
     case Leaf => 0
     case Node(r, _, _, _) => r
-      
+
   /** Merge two LeftistHeap with O(log n) order */
   def merge[S >: T](that: LeftistHeap[S])(using sord: Ordering[S]): LeftistHeap[S] =
     (this, that) match
       case (Leaf, l) => l
       case (l, Leaf) => l
-      case (Node(_, x, a1, b1), Node(_, y, a2, b2)) => 
-        if sord.lteq(x, y) then 
-          Node(x, a1, b1.merge(that)) 
+      case (Node(_, x, a1, b1), Node(_, y, a2, b2)) =>
+        if sord.lteq(x, y) then
+          Node(x, a1, b1.merge(that))
         else Node(y, a2, b2.merge(this))
 end LeftistHeap
 
 object LeftistHeap:
-  /** 
-   * Create a LeftistHeap containing just one value 
+  def empty[T]: LeftistHeap[T] = Leaf
+  
+  /**
+   * Create a LeftistHeap containing just one value
    * Figure:
    *   .
    * */
   def just[T: Ordering](x: T): LeftistHeap[T] = Node(1, x, Leaf, Leaf)
-  
+
   /**
-   * Create a LeftistHeap containing three values as triangle ordering values 
+   * Create a LeftistHeap containing three values as triangle ordering values
    * Figure:
    *     .
    *    / \
