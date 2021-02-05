@@ -1,8 +1,9 @@
-package pfds
+package set
 
-import org.scalatest.matchers.should.Matchers
 import org.scalatest.funsuite.AnyFunSuite
-import Tree._
+import org.scalatest.matchers.should.Matchers
+import set.Tree
+import set.Tree._
 
 class TreeSpec extends AnyFunSuite with Matchers:
   test("#member") {

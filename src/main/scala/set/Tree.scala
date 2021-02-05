@@ -1,10 +1,11 @@
-package pfds
+package set
+
+import set.Tree._
 
 import scala.annotation.tailrec
-import Tree._
 
 /** Binary Tree which store values by symmetric order */
-enum Tree[+T: Ordering]:
+enum Tree[+T: Ordering] extends Set[T, Tree, Ordering]:
   case Leaf
   case Node(left: Tree[T], elem: T, right: Tree[T])(implicit ord: Ordering[T])
 

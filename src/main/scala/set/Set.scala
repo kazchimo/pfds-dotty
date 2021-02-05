@@ -1,6 +1,6 @@
 package set
 
-trait Set[+T, This[+T] <: Set[T, ?]]:
-  def insert[S >: T](x: S): This[S]
+trait Set[+T, This[+T] <: Set[T, ?, ?], Constraint[_]]:
+  def insert[S >: T: Constraint](x: S): This[S]
 
-  def member[S >: T](x: S): Boolean
+  def member[S >: T: Constraint](x: S): Boolean
