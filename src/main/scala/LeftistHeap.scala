@@ -1,7 +1,16 @@
 package pfds
 import LeftistHeap._
 
-/** Binary Tree which has keep-ordered and leftist property */
+/** 
+ * Binary Tree which is heap-ordered and have leftist property.
+ *  
+ * heap-ordered:
+ *   Any parent nodes cannot be greater than child nodes.
+ *   Thus smallest value is on the root of heap.
+ * leftist property:
+ *   Any child node `rank` is smaller than or equal to all left ones. 
+ *   Which means right spine is shortest way to empty node.
+ * */
 enum LeftistHeap[+T: Ordering]:
   case Leaf
   case Node(r: Int, elem: T, left: LeftistHeap[T], right: LeftistHeap[T])(implicit ord: Ordering[T])
