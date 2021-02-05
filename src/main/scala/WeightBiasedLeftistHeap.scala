@@ -2,6 +2,7 @@ package pfds
 
 import WeightBiasedLeftistHeap._
 
+/** Binary Tree which has weight-biased leftist property */
 enum WeightBiasedLeftistHeap[+T: Ordering] extends Heap[T, WeightBiasedLeftistHeap]:
   case Leaf // Empty Node
   case Node(
