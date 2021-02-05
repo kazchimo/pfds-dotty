@@ -41,6 +41,7 @@ enum LeftistHeap[+T: Ordering]:
           Node(x, a1, b1.merge(that))
         else Node(y, a2, b2.merge(this))
   
+  /** Insert `x` into LeftistHeap */
   def insert[S >: T: Ordering](x: S): LeftistHeap[S] =
     just(x).merge(this)
         
