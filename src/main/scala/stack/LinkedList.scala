@@ -2,7 +2,7 @@ package stack
 
 import LinkedList._
 
-enum LinkedList[+T]:
+enum LinkedList[+T] extends Stack[T, LinkedList]:
   case Nil extends LinkedList[Nothing]
   case Cons(x: T, s: LinkedList[T]) extends LinkedList[T]
 
