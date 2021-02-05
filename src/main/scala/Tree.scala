@@ -60,6 +60,7 @@ object Tree:
       Node(cmp, x, cmp)
     case _ => throw Exception("Negative depth of Tree")
   
+  /** Create balanced Tree with O(log n) order */
   def balanced[T: Ordering](x: T, n: Int): Tree[T] = {
     def balanced2(m: Int) = (balanced(x, m), balanced(x, m + 1))
     
