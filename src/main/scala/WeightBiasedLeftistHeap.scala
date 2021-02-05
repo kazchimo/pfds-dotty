@@ -18,7 +18,7 @@ enum WeightBiasedLeftistHeap[+T: Ordering] extends Heap[T, WeightBiasedLeftistHe
     case Leaf => true
     case _ => false
 
-  override def insert[S >: T : Ordering](x: S): WeightBiasedLeftistHeap[S] = ???
+  override def insert[S >: T : Ordering](x: S): WeightBiasedLeftistHeap[S] = just(x).merge(this)
 
   override def merge[S >: T](
     that: WeightBiasedLeftistHeap[S])(using sord: Ordering[S]): WeightBiasedLeftistHeap[S] = (this, that) match
