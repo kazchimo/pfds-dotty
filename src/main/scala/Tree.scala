@@ -45,8 +45,12 @@ object Tree:
   given Ordering[Nothing] = new Ordering[Nothing] :
     override def compare(x: Nothing, y: Nothing): Int = 0
 
+  /* Create a Tree containing just one value 
+   * Figure:
+   *  x
+   **/
   def just[T: Ordering](x: T): Tree[T] = Node(Leaf, x, Leaf)
-  
+
   def same[T: Ordering](x: T): Tree[T] = Node(just(x), x, just(x))
 
   def withLeft[T: Ordering](l: Tree[T], e: T): Tree[T] = Node(l, e, Leaf)
@@ -59,18 +63,18 @@ object Tree:
       val cmp = complete(x, d - 1)
       Node(cmp, x, cmp)
     case _ => throw Exception("Negative depth of Tree")
-  
+
   /** Create balanced Tree with O(log n) order */
   def balanced[T: Ordering](x: T, n: Int): Tree[T] = {
     def balanced2(m: Int) = (balanced(x, m), balanced(x, m + 1))
-    
+
     n match
       case 0 => Leaf
       case _ if n > 0 & n % 2 == 1 =>
-        val t = balanced(x,  (n - 1) / 2)
+        val t = balanced(x, (n - 1) / 2)
         Node(t, x, t)
       case _ if n > 0 & n % 2 == 0 =>
-        val (l , r) = balanced2((n - 1) / 2)
+        val (l, r) = balanced2((n - 1) / 2)
         Node(l, x, r)
   }
 
