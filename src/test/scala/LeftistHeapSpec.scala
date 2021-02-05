@@ -15,6 +15,6 @@ end LeftistHeapCompanionSpec
 
 class NodeCompanionSpec extends AnyFunSuite with Matchers:
   test("#apply") {
-    Node(1, Node(2, Leaf, Leaf), Leaf) shouldBe Node(1, 1, Node(1, 2, Leaf, Leaf), Leaf)
+    Node(1, LeftistHeap.just(2), Leaf) shouldBe Node(1, 1, LeftistHeap.just(2), Leaf)
   }
 end NodeCompanionSpec
