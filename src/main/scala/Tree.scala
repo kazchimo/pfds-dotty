@@ -67,6 +67,12 @@ object Tree:
    */
   def withLeft[T: Ordering](l: Tree[T], e: T): Tree[T] = Node(l, e, Leaf)
 
+  /* Create a Tree containing two values as right weighted
+   * Figure:
+   *   x
+   *    \
+   *     x
+   */
   def withRight[T: Ordering](e: T, r: Tree[T]): Tree[T] = Node(Leaf, e, r)
 
   def complete[T: Ordering](x: T, d: Int): Tree[T] = d match
