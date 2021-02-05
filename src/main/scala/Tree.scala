@@ -59,6 +59,12 @@ object Tree:
    */
   def triangle[T: Ordering](x: T): Tree[T] = Node(just(x), x, just(x))
 
+  /* Create a Tree containing two values as left weighted
+   * Figure:
+   *   x
+   *  /
+   * x
+   */
   def withLeft[T: Ordering](l: Tree[T], e: T): Tree[T] = Node(l, e, Leaf)
 
   def withRight[T: Ordering](e: T, r: Tree[T]): Tree[T] = Node(Leaf, e, r)
