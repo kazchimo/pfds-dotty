@@ -8,7 +8,7 @@ class LeftistHeapSpec extends AnyFunSuite with Matchers:
 end LeftistHeapSpec
 
 class NodeCompanionSpec extends AnyFunSuite with Matchers:
-  test("Node") {
+  test("#apply") {
     Node(1, Node(2, Leaf, Leaf), Leaf) shouldBe Node(1, 1, Node(1, 2, Leaf, Leaf), Leaf)
   }
 end NodeCompanionSpec
