@@ -5,6 +5,10 @@ import org.scalatest.funsuite.AnyFunSuite
 import WeightBiasedLeftistHeap._
 
 class WeightBiasedLeftistHeapSpec extends AnyFunSuite with Matchers:
+  test("#weight") {
+    Leaf.weight shouldBe 0
+    just(1).weight shouldBe 1
+  }
 end WeightBiasedLeftistHeapSpec
 
 class WeightBiasedLeftistHeapCompanionSpec extends AnyFunSuite with Matchers:
