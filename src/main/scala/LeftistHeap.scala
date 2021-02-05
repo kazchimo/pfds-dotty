@@ -8,7 +8,7 @@ import LeftistHeap._
  *   Any parent nodes cannot be greater than child nodes.
  *   Thus smallest value is on the root of heap.
  * leftist property:
- *   Any child node `rank` is smaller than or equal to all left ones. 
+ *   Any right child node's `rank` is smaller than or equal to any left child node's one.
  *   Which means right spine is shortest way to empty node.
  * */
 enum LeftistHeap[+T: Ordering]:
