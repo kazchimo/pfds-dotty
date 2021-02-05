@@ -1,9 +1,9 @@
 package pfds
 import LeftistHeap._
 
-/** 
+/**
  * Binary Tree which is heap-ordered and have leftist property.
- *  
+ *
  * heap-ordered:
  *   Any parent nodes cannot be greater than child nodes.
  *   Thus smallest value is on the root of heap.
@@ -27,11 +27,27 @@ enum LeftistHeap[+T: Ordering]:
   def rank = this match
     case Leaf => 0
     case Node(r, _, _, _) => r
+      
+  /** Merge two LeftistHeap with O(log n) order */
+  def merge[S >: T](that: LeftistHeap[S])(using sord: Ordering[S]): LeftistHeap[S] =
+    (this, that) match
+      case (Leaf, l) => l
+      case (l, Leaf) => l
+      case (Node(_, x, a1, b1), Node(_, y, a2, b2)) => 
+        if sord.lteq(x, y) then 
+          Node(x, a1, b1.merge(that)) 
+        else Node(y, a2, b2.merge(this))
 end LeftistHeap
 
 object LeftistHeap:
   /** Create a LeftistHeap containing just one value */
   def just[T: Ordering](x: T): LeftistHeap[T] = Node(1, x, Leaf, Leaf)
+  
+  def withLeft[T: Ordering](left: LeftistHeap[T], x: T): LeftistHeap[T] =
+    Node(x, left, Leaf)
+  
+  def triangle[T: Ordering](a: T, b: T, c: T): LeftistHeap[T] = 
+    Node(List(a, b, c).min, just(b), just(c))
 
   object Node:
     /** Create a Node calculating the rank and sorting child Nodes */
