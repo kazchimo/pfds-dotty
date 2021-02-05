@@ -10,11 +10,11 @@ enum WeightBiasedLeftistHeap[+T: Ordering] extends Heap[T, WeightBiasedLeftistHe
          elem: T,
          left: WeightBiasedLeftistHeap[T],
          right: WeightBiasedLeftistHeap[T])(implicit ord: Ordering[T])
-  
+
   def weight: Int = this match
     case Leaf => 0
     case Node(r, _, _, _) => r
-  
+
   override def isEmpty: Boolean = this match
     case Leaf => true
     case _ => false
@@ -29,7 +29,7 @@ enum WeightBiasedLeftistHeap[+T: Ordering] extends Heap[T, WeightBiasedLeftistHe
       if sord.lteq(x, y) then
         Node(x, a1, b1.merge(that))
       else Node(y, a2, b2.merge(this))
-  
+
   override def min: T = this match
     case Leaf => throw Exception("Empty node")
     case Node(_, x, _, _) => x
@@ -37,16 +37,16 @@ enum WeightBiasedLeftistHeap[+T: Ordering] extends Heap[T, WeightBiasedLeftistHe
   override def deleteMin: WeightBiasedLeftistHeap[T] = this match
     case Leaf => throw Exception("Empty node")
     case Node(_, _, a, b) => a.merge(b)
-      
+
 end WeightBiasedLeftistHeap
 
 object WeightBiasedLeftistHeap:
-  def just[T: Ordering](x: T): WeightBiasedLeftistHeap[T] = Node(3, x, Leaf, Leaf)
-  
+  def just[T: Ordering](x: T): WeightBiasedLeftistHeap[T] = Node(1, x, Leaf, Leaf)
+
   object Node:
     def apply[T: Ordering](
       x: T, a: WeightBiasedLeftistHeap[T], b: WeightBiasedLeftistHeap[T]
     ): WeightBiasedLeftistHeap[T] =
-      if a.weight >= b.weight then 
-        Node(b.weight + a.weight + 1, x, a, b) 
+      if a.weight >= b.weight then
+        Node(b.weight + a.weight + 1, x, a, b)
       else Node(a.weight + b.weight + 1, x, b, a)
