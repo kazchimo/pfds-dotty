@@ -12,7 +12,7 @@ import LeftistHeap._
  *   Which means right spine is shortest way to empty node.
  * */
 enum LeftistHeap[+T: Ordering]:
-  case Leaf
+  case Leaf // Empty node
   case Node(r: Int, elem: T, left: LeftistHeap[T], right: LeftistHeap[T])(implicit ord: Ordering[T])
 
   /**
