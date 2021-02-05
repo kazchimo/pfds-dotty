@@ -75,6 +75,7 @@ object Tree:
    */
   def withRight[T: Ordering](e: T, r: Tree[T]): Tree[T] = Node(Leaf, e, r)
 
+  /* Create a complete Tree whose all nodes have `x` as value and depth is `d` */
   def complete[T: Ordering](x: T, d: Int): Tree[T] = d match
     case 0 => Leaf
     case _ if d > 0 =>
