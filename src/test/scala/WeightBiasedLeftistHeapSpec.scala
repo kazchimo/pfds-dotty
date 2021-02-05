@@ -11,6 +11,11 @@ class WeightBiasedLeftistHeapSpec extends AnyFunSuite with Matchers:
     triangle(1, 2, 3).weight shouldBe 3
     Node(0, triangle(1, 2, 3), triangle(4, 5, 6)).weight shouldBe 7
   }
+  
+  test("#isEmpty") {
+    Leaf.isEmpty shouldBe true
+    just(1).isEmpty shouldBe false
+  }
 end WeightBiasedLeftistHeapSpec
 
 class WeightBiasedLeftistHeapCompanionSpec extends AnyFunSuite with Matchers:
