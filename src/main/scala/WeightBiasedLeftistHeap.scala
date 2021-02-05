@@ -41,6 +41,8 @@ enum WeightBiasedLeftistHeap[+T: Ordering] extends Heap[T, WeightBiasedLeftistHe
 end WeightBiasedLeftistHeap
 
 object WeightBiasedLeftistHeap:
+  def empty[T: Ordering]: WeightBiasedLeftistHeap[T] = Leaf
+  
   def just[T: Ordering](x: T): WeightBiasedLeftistHeap[T] = Node(1, x, Leaf, Leaf)
   
   def triangle[T: Ordering](a: T, b: T, c: T): WeightBiasedLeftistHeap[T] = {

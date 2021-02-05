@@ -21,6 +21,12 @@ class WeightBiasedLeftistHeapSpec extends AnyFunSuite with Matchers:
     triangle(6, 7, 8).merge(Node(1, triangle(2, 3, 4), just(5))) shouldBe
       Node(8, 1, Node(4, 5, triangle(6, 7, 8), Leaf), triangle(2, 3, 4))
   }
+  
+  test("#insert") {
+    WeightBiasedLeftistHeap.empty[Int].insert(1) shouldBe just(1)
+    just(1).insert(2) shouldBe Node(2, 1, just(2), Leaf)
+    triangle(2, 3, 5).insert(4) shouldBe Node(4, 2, Node(2, 4, just(5), Leaf), just(3))
+  }
 
   test("#isEmpty") {
     Leaf.isEmpty shouldBe true
