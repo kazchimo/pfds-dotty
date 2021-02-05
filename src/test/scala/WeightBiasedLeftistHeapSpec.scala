@@ -16,6 +16,11 @@ class WeightBiasedLeftistHeapSpec extends AnyFunSuite with Matchers:
     Leaf.isEmpty shouldBe true
     just(1).isEmpty shouldBe false
   }
+  
+  test("#min") {
+    the[Exception] thrownBy Leaf.min
+    triangle(3, 2, 1).min shouldBe 1
+  }
 end WeightBiasedLeftistHeapSpec
 
 class WeightBiasedLeftistHeapCompanionSpec extends AnyFunSuite with Matchers:
