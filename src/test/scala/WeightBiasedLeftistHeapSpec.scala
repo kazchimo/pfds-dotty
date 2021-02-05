@@ -8,6 +8,8 @@ class WeightBiasedLeftistHeapSpec extends AnyFunSuite with Matchers:
   test("#weight") {
     Leaf.weight shouldBe 0
     just(1).weight shouldBe 1
+    triangle(1, 2, 3).weight shouldBe 3
+    Node(0, triangle(1, 2, 3), triangle(4, 5, 6)).weight shouldBe 7
   }
 end WeightBiasedLeftistHeapSpec
 

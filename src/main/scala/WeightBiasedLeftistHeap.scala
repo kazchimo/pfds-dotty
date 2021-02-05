@@ -42,6 +42,11 @@ end WeightBiasedLeftistHeap
 
 object WeightBiasedLeftistHeap:
   def just[T: Ordering](x: T): WeightBiasedLeftistHeap[T] = Node(1, x, Leaf, Leaf)
+  
+  def triangle[T: Ordering](a: T, b: T, c: T): WeightBiasedLeftistHeap[T] = {
+    val List(min, a1, a2) = List(a, b, c).sorted
+    Node(min, just(a1), just(a2))
+  }
 
   object Node:
     def apply[T: Ordering](
