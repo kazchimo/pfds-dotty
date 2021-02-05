@@ -31,7 +31,7 @@ enum LeftistHeap[+T: Ordering]:
     case Leaf => 0
     case Node(r, _, _, _) => r
 
-  /** Merge two LeftistHeap with O(log n) order */
+  /** Merge two LeftistHeap in O(log n) order */
   def merge[S >: T](that: LeftistHeap[S])(using sord: Ordering[S]): LeftistHeap[S] =
     (this, that) match
       case (Leaf, l) => l
@@ -44,6 +44,11 @@ enum LeftistHeap[+T: Ordering]:
   /** Insert `x` into LeftistHeap */
   def insert[S >: T: Ordering](x: S): LeftistHeap[S] =
     just(x).merge(this)
+  
+  /** Return a minimum value in this LeftistHeap in O(1) order */
+  def min = this match
+    case Leaf => throw Exception("Empty node")
+    case Node(_, x, _, _) => x
         
   def isEmpty: Boolean = this match
     case Leaf => true

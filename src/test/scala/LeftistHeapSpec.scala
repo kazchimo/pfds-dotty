@@ -24,6 +24,11 @@ class LeftistHeapSpec extends AnyFunSuite with Matchers:
     triangle(2, 3, 5).insert(4) shouldBe Node(2, 2, just(3), Node(4, just(5), Leaf))
   }
   
+  test("#min") {
+    the[Exception] thrownBy Leaf.min
+    triangle(2, 3, 4).min shouldBe 2
+  }
+  
   test("#isEmpty") {
     LeftistHeap.empty.isEmpty shouldBe true
     just(1).isEmpty shouldBe false
