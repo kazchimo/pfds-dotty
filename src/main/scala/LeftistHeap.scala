@@ -22,6 +22,7 @@ end LeftistHeap
 
 object LeftistHeap:
   object Node:
+    /** Create a Node calculating the rank and sorting child Nodes */
     def apply[T](x: T, a: LeftistHeap[T], b: LeftistHeap[T]): Node[T] =
       if a.rank >= b.rank then Node(b.rank + 1, x, a, b) else Node(a.rank + 1, x, b, a)
 end LeftistHeap
