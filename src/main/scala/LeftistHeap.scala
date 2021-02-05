@@ -40,6 +40,9 @@ enum LeftistHeap[+T: Ordering]:
         if sord.lteq(x, y) then
           Node(x, a1, b1.merge(that))
         else Node(y, a2, b2.merge(this))
+  
+  def insert[S >: T: Ordering](x: S): LeftistHeap[S] =
+    just(x).merge(this)
         
   def isEmpty: Boolean = this match
     case Leaf => true
