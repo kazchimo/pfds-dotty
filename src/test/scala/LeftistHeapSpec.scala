@@ -12,9 +12,9 @@ class LeftistHeapSpec extends AnyFunSuite with Matchers:
       Node(1, 1, LeftistHeap.triangle(2, 3, 4), Leaf)
     
     Node(1, triangle(2, 3, 4), just(5)).merge(triangle(6, 7, 8)) shouldBe
-      Node(2, 1, triangle(2, 3, 4), withLeft(triangle(6, 7, 8), 5))
+      Node(2, 1, triangle(2, 3, 4), Node(1, 5, triangle(6, 7, 8), Leaf))
     triangle(6, 7, 8).merge(Node(1, triangle(2, 3, 4), just(5))) shouldBe
-      Node(2, 1, triangle(2, 3, 4), withLeft(triangle(6, 7, 8), 5))
+      Node(2, 1, triangle(2, 3, 4), Node(1, 5, triangle(6, 7, 8), Leaf))
       
   }
 end LeftistHeapSpec

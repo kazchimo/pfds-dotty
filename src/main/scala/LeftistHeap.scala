@@ -48,16 +48,6 @@ object LeftistHeap:
   def just[T: Ordering](x: T): LeftistHeap[T] = Node(1, x, Leaf, Leaf)
   
   /**
-   * Create a LeftistHeap containing two values as left weighted
-   * Figure:
-   *     .
-   *    /
-   *   .
-   * */
-  def withLeft[T: Ordering](left: LeftistHeap[T], x: T): LeftistHeap[T] =
-    Node(x, left, Leaf)
-  
-  /**
    * Create a LeftistHeap containing three values as triangle ordering values 
    * Figure:
    *     .
