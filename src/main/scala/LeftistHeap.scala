@@ -13,7 +13,7 @@ import scala.annotation.tailrec
  *   Any right child node's `rank` is smaller than or equal to any left child node's one.
  *   Which means right spine is shortest way to empty node.
  * */
-enum LeftistHeap[+T: Ordering]:
+enum LeftistHeap[+T: Ordering] extends Heap[T, LeftistHeap]:
   case Leaf // Empty node
   case Node(r: Int, elem: T, left: LeftistHeap[T], right: LeftistHeap[T])(implicit ord: Ordering[T])
 
@@ -29,7 +29,7 @@ enum LeftistHeap[+T: Ordering]:
    *    /
    *   .
    * */
-  def rank = this match
+  def rank: Int = this match
     case Leaf => 0
     case Node(r, _, _, _) => r
 
@@ -48,12 +48,12 @@ enum LeftistHeap[+T: Ordering]:
     just(x).merge(this)
 
   /** Return a minimum value in this LeftistHeap in O(1) order */
-  def min = this match
+  def min: T = this match
     case Leaf => throw Exception("Empty node")
     case Node(_, x, _, _) => x
 
   /** Delete a minimum value in this LeftistHeap in O(log n) order */
-  def deleteMin = this match
+  def deleteMin: LeftistHeap[T] = this match
     case Leaf => throw Exception("Empty node")
     case Node(_, _, a, b) => a.merge(b)
 
