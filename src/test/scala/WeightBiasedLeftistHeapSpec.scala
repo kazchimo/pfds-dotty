@@ -14,6 +14,7 @@ class WeightBiasedLeftistHeapCompanionSpec extends AnyFunSuite with Matchers:
 
   test("Node#apply") {
     Node(1, Leaf, Leaf) shouldBe Node(1, 1, Leaf, Leaf)
+    Node(1, just(3), just(2)) shouldBe Node(3, 1, just(3), just(2))
   }
 end WeightBiasedLeftistHeapCompanionSpec
 
