@@ -16,11 +16,14 @@ enum LeftistHeap[+T: Ordering]:
   case Node(r: Int, elem: T, left: LeftistHeap[T], right: LeftistHeap[T])(implicit ord: Ordering[T])
 
   /**
-   * Rank of LeftistHeap which represents a length of right spine
+   * Rank of LeftistHeap which represents a length of right spine.
+   * Right spine is the rightest path to empty Node.
+   * So should return (number of values on right spine) + 1
+   * 
    * Figure:
    *       .
    *      / \    .rank
-   *     .   .  ------->  1
+   *     .   .  ------->  2
    *    /
    *   .
    * */
