@@ -41,7 +41,7 @@ enum LeftistHeap[+T: Ordering]:
           Node(x, a1, b1.merge(that))
         else Node(y, a2, b2.merge(this))
   
-  /** Insert `x` into LeftistHeap */
+  /** Insert `x` into LeftistHeap in O(log n) order */
   def insert[S >: T: Ordering](x: S): LeftistHeap[S] =
     just(x).merge(this)
   
@@ -49,6 +49,11 @@ enum LeftistHeap[+T: Ordering]:
   def min = this match
     case Leaf => throw Exception("Empty node")
     case Node(_, x, _, _) => x
+  
+  /** Delete a minimum value in this LeftistHeap in O(log n) order */
+  def deleteMin = this match
+    case Leaf => throw Exception("Empty node")
+    case Node(_, _, a, b) => a.merge(b)
         
   def isEmpty: Boolean = this match
     case Leaf => true
