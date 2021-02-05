@@ -17,6 +17,11 @@ class LeftistHeapSpec extends AnyFunSuite with Matchers:
       Node(2, 1, triangle(2, 3, 4), Node(1, 5, triangle(6, 7, 8), Leaf))
       
   }
+  
+  test("#isEmpty") {
+    LeftistHeap.empty.isEmpty shouldBe true
+    just(1).isEmpty shouldBe false
+  }
 end LeftistHeapSpec
 
 class LeftistHeapCompanionSpec extends AnyFunSuite with Matchers:

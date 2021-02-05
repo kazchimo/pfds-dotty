@@ -40,11 +40,15 @@ enum LeftistHeap[+T: Ordering]:
         if sord.lteq(x, y) then
           Node(x, a1, b1.merge(that))
         else Node(y, a2, b2.merge(this))
+        
+  def isEmpty: Boolean = this match
+    case Leaf => true
+    case _ => false  
 end LeftistHeap
 
 object LeftistHeap:
   def empty[T]: LeftistHeap[T] = Leaf
-  
+
   /**
    * Create a LeftistHeap containing just one value
    * Figure:
