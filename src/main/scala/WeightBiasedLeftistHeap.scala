@@ -14,6 +14,9 @@ enum WeightBiasedLeftistHeap[+T: Ordering] extends Heap[T, WeightBiasedLeftistHe
   def weight: Int = this match
     case Leaf => 0
     case Node(r, _, _, _) => r
+  
+  def weightSum[S >: T](that: WeightBiasedLeftistHeap[S]): Int =
+    this.weight + that.weight
 
   override def isEmpty: Boolean = this match
     case Leaf => true
@@ -26,9 +29,17 @@ enum WeightBiasedLeftistHeap[+T: Ordering] extends Heap[T, WeightBiasedLeftistHe
     case (Leaf, h) => h
     case (h, Leaf) => h
     case (Node(_, x, a1, b1), Node(_, y, a2, b2)) =>
-      if sord.lteq(x, y) then
-        Node(x, a1, b1.merge(that))
-      else Node(y, a2, b2.merge(this))
+      val weightSum = this.weightSum(that)
+      
+      if sord.lteq(x, y) then { // `that` should be under `this`
+        if b1.weightSum(that) >= a1.weight then
+          Node(weightSum, x, b1.merge(that), a1)
+        else Node(weightSum, x, a1, b1.merge(that))
+      } else { // `this` should be under `that`
+        if b2.weightSum(that) >= a2.weight then
+          Node(weightSum, y, b2.merge(this), a2)
+        else Node(weightSum, y, a2, b2.merge(this))
+      }
 
   override def min: T = this match
     case Leaf => throw Exception("Empty node")
@@ -42,9 +53,9 @@ end WeightBiasedLeftistHeap
 
 object WeightBiasedLeftistHeap:
   def empty[T: Ordering]: WeightBiasedLeftistHeap[T] = Leaf
-  
+
   def just[T: Ordering](x: T): WeightBiasedLeftistHeap[T] = Node(1, x, Leaf, Leaf)
-  
+
   def triangle[T: Ordering](a: T, b: T, c: T): WeightBiasedLeftistHeap[T] = {
     val List(min, a1, a2) = List(a, b, c).sorted
     Node(min, just(a1), just(a2))
