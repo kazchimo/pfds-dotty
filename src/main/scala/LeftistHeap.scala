@@ -40,24 +40,24 @@ enum LeftistHeap[+T: Ordering]:
         if sord.lteq(x, y) then
           Node(x, a1, b1.merge(that))
         else Node(y, a2, b2.merge(this))
-  
+
   /** Insert `x` into LeftistHeap in O(log n) order */
   def insert[S >: T: Ordering](x: S): LeftistHeap[S] =
     just(x).merge(this)
-  
+
   /** Return a minimum value in this LeftistHeap in O(1) order */
   def min = this match
     case Leaf => throw Exception("Empty node")
     case Node(_, x, _, _) => x
-  
+
   /** Delete a minimum value in this LeftistHeap in O(log n) order */
   def deleteMin = this match
     case Leaf => throw Exception("Empty node")
     case Node(_, _, a, b) => a.merge(b)
-        
+
   def isEmpty: Boolean = this match
     case Leaf => true
-    case _ => false  
+    case _ => false
 end LeftistHeap
 
 object LeftistHeap:
@@ -80,6 +80,17 @@ object LeftistHeap:
   def triangle[T: Ordering](a: T, b: T, c: T): LeftistHeap[T] = {
     val List(min, a1, a2) = List(a, b, c).sorted
     Node(min, just(a1), just(a2))
+  }
+  
+  def fromList[T: Ordering](ls: List[T]): LeftistHeap[T] = {
+    def mergeList(merged: List[LeftistHeap[T]], rest: List[LeftistHeap[T]]): LeftistHeap[T] =
+      (merged, rest) match
+        case (h :: Nil, Nil) => h // all heaps are merged and remains no rest values 
+        case (hs, Nil) => mergeList(Nil, hs) // all heaps are merged in this cycle but heaps not converged to one
+        case (hs, x::Nil) => mergeList(Nil, x::hs) // remains one heap to be merged and pass it to next cycle
+        case (hs, x1::x2::xs) => mergeList(x1.merge(x2)::hs ,xs) // merge two values
+    
+    mergeList(Nil, ls.map(just))
   }
 
   object Node:
