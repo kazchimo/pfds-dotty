@@ -1,5 +1,6 @@
 package pfds
 
+/** A data structure which provide an efficient access to a minimum value */
 trait Heap[+T: Ordering, This[+T] <: Heap[T, ?]]:
   
   def isEmpty: Boolean
