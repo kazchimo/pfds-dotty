@@ -21,6 +21,9 @@ enum LeftistHeap[+T]:
 end LeftistHeap
 
 object LeftistHeap:
+  /** Create a LeftistHeap containing just one value */
+  def just[T](x: T): LeftistHeap[T] = Node(1, x, Leaf, Leaf)
+  
   object Node:
     /** Create a Node calculating the rank and sorting child Nodes */
     def apply[T](x: T, a: LeftistHeap[T], b: LeftistHeap[T]): Node[T] =
