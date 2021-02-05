@@ -40,12 +40,30 @@ enum LeftistHeap[+T: Ordering]:
 end LeftistHeap
 
 object LeftistHeap:
-  /** Create a LeftistHeap containing just one value */
+  /** 
+   * Create a LeftistHeap containing just one value 
+   * Figure:
+   *   .
+   * */
   def just[T: Ordering](x: T): LeftistHeap[T] = Node(1, x, Leaf, Leaf)
   
+  /**
+   * Create a LeftistHeap containing two values as left weighted
+   * Figure:
+   *     .
+   *    /
+   *   .
+   * */
   def withLeft[T: Ordering](left: LeftistHeap[T], x: T): LeftistHeap[T] =
     Node(x, left, Leaf)
   
+  /**
+   * Create a LeftistHeap containing three values as triangle ordering values 
+   * Figure:
+   *     .
+   *    / \
+   *   .   .
+   * */
   def triangle[T: Ordering](a: T, b: T, c: T): LeftistHeap[T] = 
     Node(List(a, b, c).min, just(b), just(c))
 
