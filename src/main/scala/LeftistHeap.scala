@@ -1,6 +1,8 @@
 package pfds
 import LeftistHeap._
 
+import scala.annotation.tailrec
+
 /**
  * Binary Tree which is heap-ordered and have leftist property.
  *
@@ -84,7 +86,7 @@ object LeftistHeap:
 
   /** Create LeftistHeap from a List in O(n) order */
   def fromList[T: Ordering](ls: List[T]): LeftistHeap[T] = {
-    def mergeList(merged: List[LeftistHeap[T]], rest: List[LeftistHeap[T]]): LeftistHeap[T] =
+    @tailrec def mergeList(merged: List[LeftistHeap[T]], rest: List[LeftistHeap[T]]): LeftistHeap[T] =
       (merged, rest) match
         case (h :: Nil, Nil) => h // all heaps are merged and remains no rest values
         case (hs, Nil) => mergeList(Nil, hs) // all heaps are merged in this cycle but heaps not converged to one
