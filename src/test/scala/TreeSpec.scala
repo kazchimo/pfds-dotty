@@ -37,5 +37,11 @@ class TreeCompanionSpec extends AnyFunSuite with Matchers:
     Tree.complete(1, 0) shouldBe Leaf
     the[Exception] thrownBy Tree.complete(1, -1)
   }
+  
+  test("#balanced") {
+    Tree.balanced(1, 2) shouldBe Tree.withRight(1, Tree.just(1))
+    Tree.balanced(1, 3) shouldBe Tree.same(1)
+    Tree.balanced(1, 4) shouldBe Node(Tree.just(1), 1, Tree.withRight(1, Tree.just(1)))
+  }
 end TreeCompanionSpec
 
