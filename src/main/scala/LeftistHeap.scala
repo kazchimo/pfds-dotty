@@ -81,15 +81,16 @@ object LeftistHeap:
     val List(min, a1, a2) = List(a, b, c).sorted
     Node(min, just(a1), just(a2))
   }
-  
+
+  /** Create LeftistHeap from a List in O(n) order */
   def fromList[T: Ordering](ls: List[T]): LeftistHeap[T] = {
     def mergeList(merged: List[LeftistHeap[T]], rest: List[LeftistHeap[T]]): LeftistHeap[T] =
       (merged, rest) match
-        case (h :: Nil, Nil) => h // all heaps are merged and remains no rest values 
+        case (h :: Nil, Nil) => h // all heaps are merged and remains no rest values
         case (hs, Nil) => mergeList(Nil, hs) // all heaps are merged in this cycle but heaps not converged to one
         case (hs, x::Nil) => mergeList(Nil, x::hs) // remains one heap to be merged and pass it to next cycle
         case (hs, x1::x2::xs) => mergeList(x1.merge(x2)::hs ,xs) // merge two values
-    
+
     mergeList(Nil, ls.map(just))
   }
 
