@@ -54,8 +54,10 @@ object LeftistHeap:
    *    / \
    *   .   .
    * */
-  def triangle[T: Ordering](a: T, b: T, c: T): LeftistHeap[T] = 
-    Node(List(a, b, c).min, just(b), just(c))
+  def triangle[T: Ordering](a: T, b: T, c: T): LeftistHeap[T] = {
+    val List(min, a1, a2) = List(a, b, c).sorted
+    Node(min, just(a1), just(a2))
+  }
 
   object Node:
     /** Create a Node calculating the rank and sorting child Nodes */

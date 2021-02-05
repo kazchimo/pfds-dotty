@@ -23,6 +23,12 @@ class LeftistHeapCompanionSpec extends AnyFunSuite with Matchers:
   test("#just") {
     LeftistHeap.just(1) shouldBe Node(1, 1, Leaf, Leaf)
   }
+  
+  test("#triangle") {
+    triangle(1, 2, 3) shouldBe Node(2, 1, just(2), just(3))
+    triangle(2, 3, 1) shouldBe Node(2, 1, just(2), just(3))
+    triangle(3, 2, 1) shouldBe Node(2, 1, just(2), just(3))
+  }
 end LeftistHeapCompanionSpec
 
 class NodeCompanionSpec extends AnyFunSuite with Matchers:
