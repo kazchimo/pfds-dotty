@@ -5,9 +5,12 @@ import set.Tree._
 import scala.annotation.tailrec
 
 /** Binary Tree which store values by symmetric order */
-enum Tree[+T: Ordering] extends Set[T, Tree, Ordering]:
+enum Tree[+T] extends Set[T]:
   case Leaf
-  case Node(left: Tree[T], elem: T, right: Tree[T])(implicit ord: Ordering[T])
+  case Node(left: Tree[T], elem: T, right: Tree[T])
+  
+  type This[T] = Tree[T]
+  type Constraint[T] = Ordering[T]
 
   def member[S >: T](x: S)(using sord: Ordering[S]): Boolean = {
     @tailrec def go(cand: S, t: Tree[S]): Boolean = t match
