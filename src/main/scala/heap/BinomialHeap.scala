@@ -57,6 +57,7 @@ case class BinomialHeap[+T: Ordering] private (trees: List[BinomialTree[T]]) ext
   /**
    * Insert a BinomialTree into this heap.
    * This operation corresponds to the addition in binary digit.
+   * Takes O(log n) order time in the worst case when size of heap is 2^k - 1 to link trees.
    * */
   def insTree[S >: T: Ordering](tree: BinomialTree[S]): BinomialHeap[S] = this.trees match
     case Nil => BinomialHeap(tree)
