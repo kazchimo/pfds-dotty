@@ -52,6 +52,8 @@ end BinomialTree
 
 case class BinomialHeap[+T: Ordering] private[heap] (trees: List[BinomialTree[T]]) extends Heap[T]:
   override type This[T] = BinomialHeap[T]
+  
+  def ::[S >: T: Ordering](tree: BinomialTree[S]): BinomialHeap[S] = (tree :: trees).toHeap
 
   override def isEmpty: Boolean = trees.isEmpty
 
@@ -79,6 +81,14 @@ case class BinomialHeap[+T: Ordering] private[heap] (trees: List[BinomialTree[T]
         if h1.rank < h2.rank then BinomialHeap(h1 :: BinomialHeap(t1).merge(that).trees)
         else if h2.rank < h1.rank then BinomialHeap(h2 :: this.merge(BinomialHeap(t2)).trees)
         else BinomialHeap(t1).merge(BinomialHeap(t2)).insTree(h1.link(h2))
+        
+  def removeMinTree: (BinomialTree[T], BinomialHeap[T]) = trees match
+    case Nil => throw Exception("Empty Heap")
+    case t :: Nil => (t, BinomialHeap(Nil))
+    case t :: ts =>
+      val (t2, ts2) = BinomialHeap(ts).removeMinTree
+      if Ordering[T].lteq(t.elem, t2.elem) then (t, BinomialHeap(ts))
+      else (t2, t :: ts2)
 
   override def min: T = ???
 
