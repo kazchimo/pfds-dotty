@@ -42,14 +42,15 @@ object BinomialTree:
    *   *
    *
    * */
-  def rank2[T: Ordering](a: T, b: T, c: T, d: T): BinomialTree[T] = {
-    val List(a1, a2, a3, a4) = List(a, b, c, d).sorted
-    BinomialTree(2, a1, List(BinomialTree(1, a3, List(just(a4))), just(a2)))
+  def rank2[T: Ordering](_rank1: (T, T), __rank1: (T, T)): BinomialTree[T] = {
+    val t1 = rank1(_rank1._1, _rank1._2)
+    val t2 = rank1(__rank1._1, __rank1._2)
+    t1.link(t2)
   }
 end BinomialTree
 
 
-case class BinomialHeap[+T: Ordering] private (trees: List[BinomialTree[T]]) extends Heap[T]:
+case class BinomialHeap[+T: Ordering] private[heap] (trees: List[BinomialTree[T]]) extends Heap[T]:
   override type This[T] = BinomialHeap[T]
 
   override def isEmpty: Boolean = trees.isEmpty
@@ -69,7 +70,15 @@ case class BinomialHeap[+T: Ordering] private (trees: List[BinomialTree[T]]) ext
   override def insert[S >: T : Ordering](x: S): BinomialHeap[S] = 
     insTree(BinomialTree.rank0(x))
 
-  override def merge[S >: T : Ordering](that: BinomialHeap[S]): BinomialHeap[S] = ???
+  /** Merge two heaps */
+  override def merge[S >: T : Ordering](that: BinomialHeap[S]): BinomialHeap[S] =
+    (this.trees, that.trees) match
+      case (Nil, _)  => that
+      case (_, Nil) => this
+      case (h1 :: t1, h2 :: t2) => 
+        if h1.rank < h2.rank then BinomialHeap(h1 :: BinomialHeap(t1).merge(that).trees)
+        else if h2.rank < h1.rank then BinomialHeap(h2 :: this.merge(BinomialHeap(t2)).trees)
+        else BinomialHeap(t1).merge(BinomialHeap(t2)).insTree(h1.link(h2))
 
   override def min: T = ???
 

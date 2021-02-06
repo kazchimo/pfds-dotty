@@ -28,6 +28,18 @@ class BinomialHeapSpec extends AnyFunSuite with Matchers:
       BinomialHeap(BinomialTree.rank0(0), BinomialTree.rank1(1, 2))
   }
 
+  test("#merge") {
+    BinomialHeap(BinomialTree.rank0(0), BinomialTree.rank1(1, 2)).merge(
+      BinomialHeap(BinomialTree.rank2((3, 4), (5, 6)))
+    ) shouldBe BinomialHeap(
+      BinomialTree.rank0(0), BinomialTree.rank1(1, 2), BinomialTree.rank2((3, 4), (5, 6))
+    )
+    
+    BinomialHeap(BinomialTree.rank0(0), BinomialTree.rank1(1, 2)).merge(
+      BinomialHeap(BinomialTree.rank0(3))
+    ) shouldBe BinomialHeap(BinomialTree.rank2((0, 3), (1, 2)))
+  }
+  
   test("BinomialTree#link") {
     BinomialTree.just(0).link(BinomialTree.just(1)) shouldBe 
       BinomialTree(1, 0, List(BinomialTree.just(1)))
@@ -36,7 +48,7 @@ class BinomialHeapSpec extends AnyFunSuite with Matchers:
       BinomialTree.rank1(3, 4)
     
     BinomialTree.rank1(1, 2).link(BinomialTree.rank1(3, 4)) shouldBe
-      BinomialTree.rank2(1, 2, 3, 4)
+      BinomialTree.rank2((1, 2), (3, 4))
   }
 end BinomialHeapSpec
   
