@@ -32,6 +32,16 @@ case class BinomialHeap[+T: Ordering] private (trees: List[BinomialTree[T]]) ext
   override type This[T] = BinomialHeap[T]
 
   override def isEmpty: Boolean = trees.isEmpty
+  
+  /** 
+   * Insert a BinomialTree into thie heap.
+   * This operation corresponds to the addition in binary digit.
+   * */
+  def insTree[S >: T: Ordering](tree: BinomialTree[S]): BinomialHeap[S] = this.trees match
+    case Nil => BinomialHeap(tree)
+    case h :: tail => 
+      if tree.rank < h.rank then BinomialHeap(tree :: trees)
+      else BinomialHeap(tail: _*).insTree(tree.link(h))
 
   override def insert[S >: T : Ordering](x: S): BinomialHeap[S] = ???
 
