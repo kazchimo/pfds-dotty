@@ -1,9 +1,10 @@
 package finiteMap
 
-enum TreeMap[+K, +V] extends FiniteMap[K, V, TreeMap] {
+enum TreeMap[+K, +V] extends FiniteMap[K, V] {
   case Leaf
   case Node(left: TreeMap[K, V], key: K, value: V, right: TreeMap[K, V])
-  
+
+  type Map[+K, +T] = TreeMap[K, T]
   type KConst[T] = Ordering[T]
 
   /** Add new key-value pair to Map */
