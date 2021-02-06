@@ -2,9 +2,11 @@ package stack
 
 import LinkedList._
 
-enum LinkedList[+T] extends Stack[T, LinkedList]:
+enum LinkedList[+T] extends Stack[T]:
   case Nil extends LinkedList[Nothing]
   case Cons(x: T, s: LinkedList[T]) extends LinkedList[T]
+  
+  type This[T] = LinkedList[T]
 
   def isEmpty: Boolean = this match
     case Nil => true

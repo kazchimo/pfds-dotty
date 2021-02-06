@@ -1,6 +1,8 @@
 package stack
 
-trait Stack[+T, This[+T] <: Stack[T, ?]]:
+trait Stack[+T]:
+  type This[+T] <: Stack[T]
+  
   def isEmpty: Boolean
 
   def head: T
