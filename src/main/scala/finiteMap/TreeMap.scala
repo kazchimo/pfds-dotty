@@ -1,19 +1,23 @@
 package finiteMap
 
+import lib.NoConstraint
+
 enum TreeMap[+K, +V] extends FiniteMap[K, V] {
   case Leaf
   case Node(left: TreeMap[K, V], key: K, value: V, right: TreeMap[K, V])
 
   type Map[+K, +T] = TreeMap[K, T]
   type KConst[T] = Ordering[T]
+  type VConst[T] = NoConstraint[T]
 
   /** Add new key-value pair to Map */
-  override def bind[KK >: K, VV >: V](k: KK, v: VV)(using kord: Ordering[KK]): TreeMap[KK, VV] =
+  override def bind[KK >: K, VV >: V](k: KK, v: VV)(
+    using kconst: Ordering[KK], vconst: VConst[VV]): TreeMap[KK, VV] =
     this match
       case Leaf => Node(Leaf, k, v, Leaf)
       case Node(l, key, value, r) => 
-        if kord.lt(k, key) then Node(l.bind(k, v), key, value, r)
-        else if kord.lt(key, k) then Node(l, key, value, r.bind(k, v))
+        if kconst.lt(k, key) then Node(l.bind(k, v), key, value, r)
+        else if kconst.lt(key, k) then Node(l, key, value, r.bind(k, v))
         else this
 
   /** Find a value by key */
