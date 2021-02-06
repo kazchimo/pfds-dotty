@@ -35,11 +35,11 @@ object BinomialTree:
 
   /**
    * Figure:
-   *     *
-   *    /|
-   *   * *
-   *   |
-   *   *
+   *  _rank1    __rank1           *
+   *     *         *             /|
+   *     |    +    |     ==>    * *
+   *     *         *            |
+   *                            *
    *
    * */
   def rank2[T: Ordering](_rank1: (T, T), __rank1: (T, T)): BinomialTree[T] = {
@@ -65,9 +65,9 @@ case class BinomialHeap[+T: Ordering] private[heap] (trees: List[BinomialTree[T]
     case h :: tail =>
       if tree.rank < h.rank then BinomialHeap(tree :: trees)
       else BinomialHeap(tail: _*).insTree(tree.link(h))
-  
+
   /** Inset a value into this heap */
-  override def insert[S >: T : Ordering](x: S): BinomialHeap[S] = 
+  override def insert[S >: T : Ordering](x: S): BinomialHeap[S] =
     insTree(BinomialTree.rank0(x))
 
   /** Merge two heaps */
@@ -75,7 +75,7 @@ case class BinomialHeap[+T: Ordering] private[heap] (trees: List[BinomialTree[T]
     (this.trees, that.trees) match
       case (Nil, _)  => that
       case (_, Nil) => this
-      case (h1 :: t1, h2 :: t2) => 
+      case (h1 :: t1, h2 :: t2) =>
         if h1.rank < h2.rank then BinomialHeap(h1 :: BinomialHeap(t1).merge(that).trees)
         else if h2.rank < h1.rank then BinomialHeap(h2 :: this.merge(BinomialHeap(t2)).trees)
         else BinomialHeap(t1).merge(BinomialHeap(t2)).insTree(h1.link(h2))
