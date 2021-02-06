@@ -9,7 +9,7 @@ private[heap] case class BinomialTree[+T: Ordering](rank: Int, elem: T, childs: 
   def link[S >: T](that: BinomialTree[S])(using sord: Ordering[S]): BinomialTree[S] =
     if sord.lteq(elem, that.elem) then that.asChildOf(this)
     else this.asChildOf(that)
-
+end BinomialTree
 
 object BinomialTree:
   /** Create a rank 0 BinomialTree */
@@ -25,9 +25,10 @@ object BinomialTree:
     val List(a1, a2, a3, a4) = List(a, b, c, d).sorted
     BinomialTree(2, a1, List(BinomialTree(1, a3, List(just(a4))), just(a2)))
   }
+end BinomialTree
 
 
-case class BinomialHeap[+T: Ordering](private val trees: List[BinomialTree[T]]) extends Heap[T]:
+case class BinomialHeap[+T: Ordering] private (trees: List[BinomialTree[T]]) extends Heap[T]:
   override type This[T] = BinomialHeap[T]
 
   override def isEmpty: Boolean = trees.isEmpty
@@ -38,8 +39,13 @@ case class BinomialHeap[+T: Ordering](private val trees: List[BinomialTree[T]]) 
 
   override def min: T = ???
 
-  override def deleteMin: BinomialHeap[T]  = ???
+  override def deleteMin: BinomialHeap[T] = ???
+end BinomialHeap
 
 object BinomialHeap:
   def empty[T: Ordering] = BinomialHeap(List())
+  
+  /** Create a BinomialHeap with BinomialTrees sorted by rank in ascending order */
+  def apply[T: Ordering](trees: BinomialTree[T]*): BinomialHeap[T] = 
+    BinomialHeap(trees.sortBy(_.rank).toList)
 end BinomialHeap
