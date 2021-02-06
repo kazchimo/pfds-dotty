@@ -1,7 +1,9 @@
 package heap
 
 /** A data structure which provide an efficient access to a minimum value */
-trait Heap[+T: Ordering, This[+T] <: Heap[T, ?]]:
+trait Heap[+T: Ordering]:
+  type This[+T] <: Heap[T]
+  
   def isEmpty: Boolean
 
   def insert[S >: T: Ordering](x: S): This[S]
