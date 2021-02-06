@@ -55,7 +55,7 @@ case class BinomialHeap[+T: Ordering] private (trees: List[BinomialTree[T]]) ext
   override def isEmpty: Boolean = trees.isEmpty
 
   /**
-   * Insert a BinomialTree into thie heap.
+   * Insert a BinomialTree into this heap.
    * This operation corresponds to the addition in binary digit.
    * */
   def insTree[S >: T: Ordering](tree: BinomialTree[S]): BinomialHeap[S] = this.trees match
@@ -63,8 +63,10 @@ case class BinomialHeap[+T: Ordering] private (trees: List[BinomialTree[T]]) ext
     case h :: tail =>
       if tree.rank < h.rank then BinomialHeap(tree :: trees)
       else BinomialHeap(tail: _*).insTree(tree.link(h))
-
-  override def insert[S >: T : Ordering](x: S): BinomialHeap[S] = ???
+  
+  /** Inset a value into this heap */
+  override def insert[S >: T : Ordering](x: S): BinomialHeap[S] = 
+    insTree(BinomialTree.rank0(x))
 
   override def merge[S >: T : Ordering](that: BinomialHeap[S]): BinomialHeap[S] = ???
 
