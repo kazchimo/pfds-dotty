@@ -88,6 +88,7 @@ case class BinomialHeap[+T: Ordering] private[heap] (trees: List[BinomialTree[T]
         else if h2.rank < h1.rank then h2 :: this.merge(t2.toHeap)
         else t1.toHeap.merge(t2.toHeap).insTree(h1.link(h2))
         
+  /** Returns a pair of the tree which has minimum value in heap and rest heap */
   def removeMinTree: (BinomialTree[T], BinomialHeap[T]) = trees match
     case Nil => throw Exception("Empty Heap")
     case t :: Nil => (t, Nil.toHeap)
