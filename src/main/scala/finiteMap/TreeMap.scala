@@ -24,3 +24,8 @@ enum TreeMap[+K, +V] extends FiniteMap[K, V] {
       else if kord.lt(key, k) then r.lookup(k)
       else value
 }
+
+object TreeMap:
+  def empty[K, V]: TreeMap[K, V] = Leaf
+
+  def just[K, V](k: K, v: V): TreeMap[K, V] = Node(Leaf, k, v, Leaf)
