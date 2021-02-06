@@ -1,5 +1,9 @@
 package heap
 
+private[heap] object TreeListOps:
+  extension [T: Ordering](l: List[BinomialTree[T]])
+    def  toHeap = BinomialHeap(l)
+
 private[heap] case class BinomialTree[+T: Ordering](rank: Int, elem: T, childs: List[BinomialTree[T]]):
   /** Create a new (`rank` + 1) BinomialTree making `this` as a child of `that` */
   def asChildOf[S >: T: Ordering](that: BinomialTree[S]): BinomialTree[S] =
@@ -51,6 +55,8 @@ end BinomialTree
 
 
 case class BinomialHeap[+T: Ordering] private[heap] (trees: List[BinomialTree[T]]) extends Heap[T]:
+  import TreeListOps._
+  
   override type This[T] = BinomialHeap[T]
   
   def ::[S >: T: Ordering](tree: BinomialTree[S]): BinomialHeap[S] = (tree :: trees).toHeap
@@ -65,8 +71,8 @@ case class BinomialHeap[+T: Ordering] private[heap] (trees: List[BinomialTree[T]
   def insTree[S >: T: Ordering](tree: BinomialTree[S]): BinomialHeap[S] = this.trees match
     case Nil => BinomialHeap(tree)
     case h :: tail =>
-      if tree.rank < h.rank then BinomialHeap(tree :: trees)
-      else BinomialHeap(tail: _*).insTree(tree.link(h))
+      if tree.rank < h.rank then tree :: this
+      else tail.toHeap.insTree(tree.link(h))
 
   /** Inset a value into this heap */
   override def insert[S >: T : Ordering](x: S): BinomialHeap[S] =
@@ -78,16 +84,16 @@ case class BinomialHeap[+T: Ordering] private[heap] (trees: List[BinomialTree[T]
       case (Nil, _)  => that
       case (_, Nil) => this
       case (h1 :: t1, h2 :: t2) =>
-        if h1.rank < h2.rank then BinomialHeap(h1 :: BinomialHeap(t1).merge(that).trees)
-        else if h2.rank < h1.rank then BinomialHeap(h2 :: this.merge(BinomialHeap(t2)).trees)
-        else BinomialHeap(t1).merge(BinomialHeap(t2)).insTree(h1.link(h2))
+        if h1.rank < h2.rank then h1 :: t1.toHeap.merge(that)
+        else if h2.rank < h1.rank then h2 :: this.merge(t2.toHeap)
+        else t1.toHeap.merge(t2.toHeap).insTree(h1.link(h2))
         
   def removeMinTree: (BinomialTree[T], BinomialHeap[T]) = trees match
     case Nil => throw Exception("Empty Heap")
-    case t :: Nil => (t, BinomialHeap(Nil))
+    case t :: Nil => (t, Nil.toHeap)
     case t :: ts =>
-      val (t2, ts2) = BinomialHeap(ts).removeMinTree
-      if Ordering[T].lteq(t.elem, t2.elem) then (t, BinomialHeap(ts))
+      val (t2, ts2) = ts.toHeap.removeMinTree
+      if Ordering[T].lteq(t.elem, t2.elem) then (t, ts.toHeap)
       else (t2, t :: ts2)
 
   override def min: T = ???
