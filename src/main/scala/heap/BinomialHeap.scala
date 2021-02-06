@@ -15,12 +15,33 @@ object BinomialTree:
   /** Create a rank 0 BinomialTree */
   def just[T: Ordering](x: T): BinomialTree[T] = BinomialTree(0, x, Nil)
 
+  /**
+   * Figure:
+   *   .
+   *   
+   * */
   def rank0[T: Ordering](a: T): BinomialTree[T] = just(a)
 
+  /**
+   * Figure:
+   *   .
+   *   |
+   *   .
+   *   
+   * */
   def rank1[T: Ordering](a: T, b: T): BinomialTree[T] =
     if summon[Ordering[T]].lteq(a, b) then BinomialTree(1, a, List(just(b)))
     else BinomialTree(1, b, List(just(a)))
 
+  /**
+   * Figure:
+   *     .
+   *    /|
+   *   . .
+   *   |
+   *   .
+   *   
+   * */
   def rank2[T: Ordering](a: T, b: T, c: T, d: T): BinomialTree[T] = {
     val List(a1, a2, a3, a4) = List(a, b, c, d).sorted
     BinomialTree(2, a1, List(BinomialTree(1, a3, List(just(a4))), just(a2)))
