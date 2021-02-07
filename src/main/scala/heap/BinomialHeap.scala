@@ -99,7 +99,10 @@ case class BinomialHeap[+T: Ordering] private[heap] (trees: List[BinomialTree[T]
 
   override def min: T = removeMinTree._1.elem
 
-  override def deleteMin: BinomialHeap[T] = ???
+  override def deleteMin: BinomialHeap[T] = {
+    val (BinomialTree(_, _, ts1), ts2) = removeMinTree
+    ts1.reverse.toHeap.merge(ts2)
+  }
 end BinomialHeap
 
 object BinomialHeap:
