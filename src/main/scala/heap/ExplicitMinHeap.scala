@@ -1,11 +1,10 @@
 package heap
 
+/** Give an access to minimum value in O(1) order based on other heaps implementations */
 enum ExplicitMinHeap[+T: Ordering, H[+T] <: Heap[T, H]] 
   extends Heap[T, [T] =>> ExplicitMinHeap[T, H]]:
   case Empty(heap: H[Nothing]) extends ExplicitMinHeap[Nothing, H]
   case NonEmpty(m: T, heap: H[T])(implicit ev: Ordering[T]) extends ExplicitMinHeap[T, H]
-
-  type This[+T] = ExplicitMinHeap[T, H]
 
   override def min: T = this match
     case NonEmpty(min, _) => min
