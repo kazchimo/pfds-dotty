@@ -1,5 +1,7 @@
 package heap
 
+import ExplicitMinHeap._
+
 /** Give an access to minimum value in O(1) order based on other heaps implementations */
 enum ExplicitMinHeap[+T: Ordering, H[+T] <: Heap[T, H]] 
   extends Heap[T, [T] =>> ExplicitMinHeap[T, H]]:
@@ -38,4 +40,10 @@ enum ExplicitMinHeap[+T: Ordering, H[+T] <: Heap[T, H]]
       val deleted = h.deleteMin
       if deleted.isEmpty then Empty(deleted.asInstanceOf[H[Nothing]])
       else NonEmpty(deleted.min, deleted)
+end ExplicitMinHeap
+
+object ExplicitMinHeap:
+  def apply[T: Ordering, H[+T] <: Heap[T, H]](h: H[T]): ExplicitMinHeap[T, H] = 
+    if h.isEmpty then Empty[Nothing, H](h.asInstanceOf[H[Nothing]]) else NonEmpty[T, H](h.min, h)
+end ExplicitMinHeap
       
