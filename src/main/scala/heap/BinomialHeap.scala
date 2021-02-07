@@ -99,9 +99,11 @@ case class BinomialHeap[+T: Ordering] private[heap] (trees: List[BinomialTree[T]
 
   override def min: T = removeMinTree._1.elem
 
+  /** Create a new heap deleteing the minimum value */
   override def deleteMin: BinomialHeap[T] = {
     val (BinomialTree(_, _, ts1), ts2) = removeMinTree
-    ts1.reverse.toHeap.merge(ts2)
+    // child trees of a tree should be reversed because they are sorted by rank in desc order
+    ts1.reverse.toHeap.merge(ts2) 
   }
 end BinomialHeap
 
