@@ -54,10 +54,8 @@ object BinomialTree:
 end BinomialTree
 
 
-case class BinomialHeap[+T: Ordering] private[heap] (trees: List[BinomialTree[T]]) extends Heap[T]:
+case class BinomialHeap[+T: Ordering] private[heap] (trees: List[BinomialTree[T]]) extends Heap[T, BinomialHeap]:
   import TreeListOps._
-  
-  override type This[T] = BinomialHeap[T]
   
   def ::[S >: T: Ordering](tree: BinomialTree[S]): BinomialHeap[S] = (tree :: trees).toHeap
 

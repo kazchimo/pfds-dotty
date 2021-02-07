@@ -5,15 +5,13 @@ import heap.WeightBiasedLeftistHeap._
 import WeightBiasedLeftistHeap._
 
 /** Binary Tree which has weight-biased leftist property */
-enum WeightBiasedLeftistHeap[+T: Ordering] extends Heap[T]:
+enum WeightBiasedLeftistHeap[+T: Ordering] extends Heap[T, WeightBiasedLeftistHeap]:
   case Leaf // Empty Node
   case Node(
          r: Int,
          elem: T,
          left: WeightBiasedLeftistHeap[T],
          right: WeightBiasedLeftistHeap[T])(implicit ord: Ordering[T])
-  
-  type This[T] = WeightBiasedLeftistHeap[T]
 
   def weight: Int = this match
     case Leaf => 0
