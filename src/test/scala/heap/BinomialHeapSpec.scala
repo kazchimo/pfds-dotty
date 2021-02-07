@@ -45,6 +45,13 @@ class BinomialHeapSpec extends AnyFunSuite with Matchers:
       (BinomialTree.rank0(0), BinomialHeap(BinomialTree.rank1(1, 2)))
   }
   
+  test("#min") {
+    BinomialHeap(BinomialTree.rank0(0), BinomialTree.rank1(1, 2)).min shouldBe 0
+    BinomialHeap(
+      BinomialTree.rank2((3, 4), (5, 6)), BinomialTree.rank1(1, 2)
+    ).min shouldBe 1
+  }
+  
   test("BinomialTree#link") {
     BinomialTree.just(0).link(BinomialTree.just(1)) shouldBe 
       BinomialTree(1, 0, List(BinomialTree.just(1)))

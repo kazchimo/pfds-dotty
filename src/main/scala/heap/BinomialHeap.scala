@@ -97,7 +97,7 @@ case class BinomialHeap[+T: Ordering] private[heap] (trees: List[BinomialTree[T]
       if Ordering[T].lteq(t.elem, t2.elem) then (t, ts.toHeap)
       else (t2, t :: ts2)
 
-  override def min: T = ???
+  override def min: T = removeMinTree._1.elem
 
   override def deleteMin: BinomialHeap[T] = ???
 end BinomialHeap
