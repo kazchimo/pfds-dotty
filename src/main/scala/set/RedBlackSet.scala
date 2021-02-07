@@ -19,5 +19,11 @@ enum RedBlackSet[+T, C <: Color] extends Set[T]:
 
   override def insert[S >: T: Ordering](x: S): RedBlackSet[S, C] = ???
 
-  override def member[S >: T: Ordering](x: S): Boolean = ???
+  override def member[S >: T: Ordering](x: S): Boolean = this match
+    case Empty => false
+    case Node(_, l, e, r) => 
+      if Ordering[S].lt(x, e) then l.member(x)
+      else if Ordering[S].gt(x, e) then r.member(x)
+      else true
+    
 end RedBlackSet
