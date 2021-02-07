@@ -13,8 +13,8 @@ enum ExplicitMinHeap[+T: Ordering, H[+T] <: Heap[T, H]]
     case Empty => throw Exception("Empty Heap")
 
   override def isEmpty: Boolean = this match
-    case Empty => true
-    case NonEmpty => false
+    case _: Empty[_, _] => true
+    case _: NonEmpty[_, _] => false
 
   /** Add a new element to this heap */
   override def insert[S >: T : Ordering](x: S): ExplicitMinHeap[S, H] = this match
@@ -31,7 +31,6 @@ enum ExplicitMinHeap[+T: Ordering, H[+T] <: Heap[T, H]]
       case (NonEmpty(m1, h1), NonEmpty(m2, h2)) => 
         if Ordering[S].lteq(m1, m2) then NonEmpty(m1, h1.merge(h2))
         else NonEmpty(m2, h1.merge(h2))
-      
 
   /** Delete the minimum value */
   override def deleteMin: ExplicitMinHeap[T, H] = this match
