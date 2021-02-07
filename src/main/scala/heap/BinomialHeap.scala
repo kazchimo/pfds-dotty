@@ -56,7 +56,7 @@ end BinomialTree
 
 case class BinomialHeap[+T: Ordering] private[heap] (trees: List[BinomialTree[T]]) extends Heap[T, BinomialHeap]:
   import TreeListOps._
-  
+
   def ::[S >: T: Ordering](tree: BinomialTree[S]): BinomialHeap[S] = (tree :: trees).toHeap
 
   override def isEmpty: Boolean = trees.isEmpty
@@ -106,7 +106,7 @@ case class BinomialHeap[+T: Ordering] private[heap] (trees: List[BinomialTree[T]
 end BinomialHeap
 
 object BinomialHeap:
-  def empty[T: Ordering] = BinomialHeap(List())
+  def empty[T: Ordering]: BinomialHeap[T] = BinomialHeap(List())
 
   /** Create a BinomialHeap with BinomialTrees sorted by rank in ascending order */
   def apply[T: Ordering](trees: BinomialTree[T]*): BinomialHeap[T] =
