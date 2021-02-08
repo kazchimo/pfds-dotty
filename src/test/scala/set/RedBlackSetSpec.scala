@@ -17,5 +17,7 @@ class RedBlackSetSpec extends AnyFunSuite with Matchers:
       red(justBlack(1), 2, justBlack(3))
     RedBlackSet.balance(Red, justBlack(1), 2, justBlack(3)) shouldBe
       red(justBlack(1), 2, justBlack(3))
+    RedBlackSet.balance(Black, justRed(1), 2, justRed(3)) shouldBe
+      black(justRed(1), 2, justRed(3))
   }
 
