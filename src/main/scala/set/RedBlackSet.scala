@@ -37,4 +37,22 @@ object RedBlackSet:
     case (Black, a, x, Node(Red, b, y, Node(Red, c, z, d))) =>
       Node(Red, Node(Black, a, x, b), y, Node(Black, c, z, d))
     case (c, a, x, b) => Node(c, a, x, b)
+      
+  def just[C <: Color, T](c: C, x: T): RedBlackSet[T, C] = Node(c, Empty, x, Empty)
+  
+  def justBlack[T](x: T): RedBlackSet[T, Black.type] = just(Black, x)
+  
+  def justRed[T](x: T): RedBlackSet[T, Red.type] = just(Red, x)
+  
+  def black[T](left: RedBlackSet[T, ?], x: T, right: RedBlackSet[T, ?]): RedBlackSet[T, Black.type] =
+    Node(Black, left, x, right)
+    
+  def red[T](left: RedBlackSet[T, ?], x: T, right: RedBlackSet[T, ?]): RedBlackSet[T, Red.type] =
+    Node(Red, left, x, right)
+  
+  def withLeft[C <: Color, T](c: C, left: RedBlackSet[T, ?], x: T): RedBlackSet[T, C] =
+    Node(c, left, x, Empty)
+
+  def withRight[C <: Color, T](c: C, x: T, right: RedBlackSet[T, ?]): RedBlackSet[T, C] =
+    Node(c, Empty, x, right)
 end RedBlackSet
