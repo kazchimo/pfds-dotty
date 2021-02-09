@@ -52,8 +52,10 @@ object RedBlackSet:
       Node(Red, Node(Black, a, x, b), y, Node(Black, c, z, d))
     case (c, a, x, b) => Node(c, a, x, b)
   
+  /** Create a RedBlackSet from a list sorted in ascending order */
   def fromSorted[T](xs: List[T]) = {
     type BottomToTopRightSpine = List[(Color, T, RedBlackSet[T])]
+    
     def balance(xs: BottomToTopRightSpine): BottomToTopRightSpine = 
       xs match
         case (Red, v, t) :: Nil => List((Black, v, t))
@@ -61,10 +63,11 @@ object RedBlackSet:
           (Black, v1, t1) :: balance((Red, v2, black(t3, v3, t2)) :: xs)
         case xs => xs
         
-    def ins(balanced: BottomToTopRightSpine, rest: List[T]): BottomToTopRightSpine =
+    @tailrec def ins(balanced: BottomToTopRightSpine, rest: List[T]): BottomToTopRightSpine =
       (balanced, rest) match
         case (b, Nil) => b
-        case (b, x :: xs) => ins(balance((Red, x, Empty) :: b), xs)
+        // add a element as red node to a place corresponding to bottom of right spine
+        case (b, x :: xs) => ins(balance((Red, x, Empty) :: b), xs) 
         
     @tailrec def toTree(tree: RedBlackSet[T], ts: BottomToTopRightSpine): RedBlackSet[T] =
       (tree, ts) match
