@@ -1,7 +1,9 @@
 package set
 
-import Color._
 import RedBlackSet._
+import Color._
+import scala.annotation.tailrec
+
 
 enum Color:
   case Red, Black
@@ -49,6 +51,28 @@ object RedBlackSet:
     case (Black, a, x, Node(Red, b, y, Node(Red, c, z, d))) =>
       Node(Red, Node(Black, a, x, b), y, Node(Black, c, z, d))
     case (c, a, x, b) => Node(c, a, x, b)
+  
+  def fromSorted[T](xs: List[T]) = {
+    type BottomToTopRightSpine = List[(Color, T, RedBlackSet[T])]
+    def balance(xs: BottomToTopRightSpine): BottomToTopRightSpine = 
+      xs match
+        case (Red, v, t) :: Nil => List((Black, v, t))
+        case (Red, v1, t1) :: (Red, v2, t2) :: (Black, v3, t3) :: xs =>
+          (Black, v1, t1) :: balance((Red, v2, black(t3, v3, t2)) :: xs)
+        case xs => xs
+        
+    def ins(balanced: BottomToTopRightSpine, rest: List[T]): BottomToTopRightSpine =
+      (balanced, rest) match
+        case (b, Nil) => b
+        case (b, x :: xs) => ins(balance((Red, x, Empty) :: b), xs)
+        
+    @tailrec def toTree(tree: RedBlackSet[T], ts: BottomToTopRightSpine): RedBlackSet[T] =
+      (tree, ts) match
+        case (t, Nil) => t
+        case (t, (color, v, t2) :: ts) => toTree(Node(color, t2, v, t), ts)
+    
+    toTree(Empty, ins(Nil, xs))
+  }
 
   def just[T](c: Color, x: T): RedBlackSet[T] = Node(c, Empty, x, Empty)
 
