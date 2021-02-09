@@ -1,11 +1,11 @@
 package stream
 
-trait Stream[+T]:
-  def ++[S >: T](that: Stream[S]): Stream[S]
+trait Stream[+T, This[+T] <: Stream[T, ?]]:
+  def ++[S >: T](that: This[S]): This[S]
 
-  def take(n: Int): Stream[T]
+  def take(n: Int): This[T]
 
-  def drop(n: Int): Stream[T]
+  def drop(n: Int): This[T]
 
-  def reverse: Stream[T]
+  def reverse: This[T]
 
