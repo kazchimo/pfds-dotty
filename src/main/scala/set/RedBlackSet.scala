@@ -21,8 +21,8 @@ enum RedBlackSet[+T] extends Set[T]:
     def ins(s: RedBlackSet[S]): RedBlackSet[S] = s match
       case Empty => justRed(x)
       case Node(color, a, y, b) => 
-        if Ordering[S].lt(x, y) then balance(color, ins(a), y, b)
-        else if Ordering[S].gt(x, y) then balance(color, a, y, ins(b))
+        if Ordering[S].lt(x, y) then lbalance(color, ins(a), y, b)
+        else if Ordering[S].gt(x, y) then rbalance(color, a, y, ins(b))
         else s
     
     val Node(_, a, y, b) = ins(this)
@@ -39,6 +39,24 @@ enum RedBlackSet[+T] extends Set[T]:
 end RedBlackSet
 
 object RedBlackSet:
+  def lbalance[T](
+    color: Color, n1: RedBlackSet[T], elem: T, n2: RedBlackSet[T]
+  ): RedBlackSet[T] = (color, n1, elem, n2) match
+    case (Black, Node(Red, Node(Red, a, x, b), y, c), z, d) =>
+      Node(Red, Node(Black, a, x, b), y, Node(Black, c, z, d))
+    case (Black, Node(Red, a, x, Node(Red, b, y, c)), z, d) =>
+      Node(Red, Node(Black, a, x, b), y, Node(Black, c, z, d))
+    case (c, a, x, b) => Node(c, a, x, b)
+
+  def rbalance[T](
+    color: Color, n1: RedBlackSet[T], elem: T, n2: RedBlackSet[T]
+  ): RedBlackSet[T] = (color, n1, elem, n2) match
+    case (Black, a, x, Node(Red, Node(Red, b, y, c), z, d)) =>
+      Node(Red, Node(Black, a, x, b), y, Node(Black, c, z, d))
+    case (Black, a, x, Node(Red, b, y, Node(Red, c, z, d))) =>
+      Node(Red, Node(Black, a, x, b), y, Node(Black, c, z, d))
+    case (c, a, x, b) => Node(c, a, x, b)
+  
   def balance[T](
      color: Color, n1: RedBlackSet[T], elem: T, n2: RedBlackSet[T]
   ): RedBlackSet[T] = (color, n1, elem, n2) match
