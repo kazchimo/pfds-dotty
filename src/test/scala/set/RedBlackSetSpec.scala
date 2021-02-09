@@ -40,3 +40,8 @@ class RedBlackSetSpec extends AnyFunSuite with Matchers:
       )
   }
 
+  test("#fromSorted") {
+    RedBlackSet.fromSorted(List(1, 2, 3, 4, 5)) shouldBe
+      black(justBlack(1), 2, red(justBlack(3), 4, justBlack(5)))
+  }
+
