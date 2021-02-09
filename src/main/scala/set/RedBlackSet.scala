@@ -21,9 +21,21 @@ enum RedBlackSet[+T] extends Set[T]:
     def ins(s: RedBlackSet[S]): RedBlackSet[S] = s match
       case Empty => justRed(x)
       case Node(color, a, y, b) => 
-        if Ordering[S].lt(x, y) then lbalance(color, ins(a), y, b)
-        else if Ordering[S].gt(x, y) then rbalance(color, a, y, ins(b))
-        else s
+        if Ordering[S].lt(x, y) then { 
+          a match
+            case Empty => Node(color, justRed(x), y, b)
+            case Node(cc, aa, yy, bb) => 
+              if Ordering[S].lt(x, yy) then llbalance(color, ins(a), y, b)
+              else if Ordering[S].gt(x, yy) then lrbalance(color, ins(a), y, b)
+              else s
+        } else if Ordering[S].gt(x, y) then { 
+          b match
+            case Empty => Node(color, a, y, justRed(x))
+            case Node(cc, aa, yy, bb) =>
+              if Ordering[S].lt(x, yy) then rlbalance(color, a, y, ins(b))
+              else if Ordering[S].gt(x, yy) then rrbalance(color, a, y, ins(b))
+              else s
+        } else s
     
     val Node(_, a, y, b) = ins(this)
     Node(Black, a, y, b)
@@ -56,7 +68,35 @@ object RedBlackSet:
     case (Black, a, x, Node(Red, b, y, Node(Red, c, z, d))) =>
       Node(Red, Node(Black, a, x, b), y, Node(Black, c, z, d))
     case (c, a, x, b) => Node(c, a, x, b)
-  
+
+  def lrbalance[T](
+    color: Color, n1: RedBlackSet[T], elem: T, n2: RedBlackSet[T]
+  ): RedBlackSet[T] = (color, n1, elem, n2) match
+    case (Black, Node(Red, a, x, Node(Red, b, y, c)), z, d) =>
+      Node(Red, Node(Black, a, x, b), y, Node(Black, c, z, d))
+    case (c, a, x, b) => Node(c, a, x, b)
+
+  def llbalance[T](
+    color: Color, n1: RedBlackSet[T], elem: T, n2: RedBlackSet[T]
+  ): RedBlackSet[T] = (color, n1, elem, n2) match
+    case (Black, Node(Red, Node(Red, a, x, b), y, c), z, d) =>
+      Node(Red, Node(Black, a, x, b), y, Node(Black, c, z, d))
+    case (c, a, x, b) => Node(c, a, x, b)
+
+  def rlbalance[T](
+    color: Color, n1: RedBlackSet[T], elem: T, n2: RedBlackSet[T]
+  ): RedBlackSet[T] = (color, n1, elem, n2) match
+    case (Black, a, x, Node(Red, Node(Red, b, y, c), z, d)) =>
+      Node(Red, Node(Black, a, x, b), y, Node(Black, c, z, d))
+    case (c, a, x, b) => Node(c, a, x, b)
+
+  def rrbalance[T](
+    color: Color, n1: RedBlackSet[T], elem: T, n2: RedBlackSet[T]
+  ): RedBlackSet[T] = (color, n1, elem, n2) match
+    case (Black, a, x, Node(Red, b, y, Node(Red, c, z, d))) =>
+      Node(Red, Node(Black, a, x, b), y, Node(Black, c, z, d))
+    case (c, a, x, b) => Node(c, a, x, b)
+
   def balance[T](
      color: Color, n1: RedBlackSet[T], elem: T, n2: RedBlackSet[T]
   ): RedBlackSet[T] = (color, n1, elem, n2) match
