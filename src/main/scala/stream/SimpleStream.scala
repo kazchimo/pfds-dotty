@@ -6,7 +6,7 @@ import scala.annotation.targetName
 enum SimpleStream[+T] extends Stream[T] {
   case SNil
   case SCons(head: T, tail: () => Stream[T])
-  
+
   override def ++[S >: T](that: Stream[S]): Stream[S] = this match
     case SNil => that
     case SCons(head, tail) => SimpleStream(head, tail() ++ that)
@@ -25,11 +25,20 @@ enum SimpleStream[+T] extends Stream[T] {
     def rev(s1: Stream[T], s2: Stream[T]): Stream[T] = s1 match
       case SNil => s2
       case SCons(head, tail) => rev(tail(), SimpleStream(head, s2))
-    
+
     rev(this, SNil)
   }
 }
 
 object SimpleStream:
-  def apply[T](h: T, t: => Stream[T]): SimpleStream[T] = SCons(h, () => t)
+  object SCons:
+    def apply[T](head: T, tail: => Stream[T]): SimpleStream[T] = SCons(head, () => tail)
+  
+  def apply[T](h: T, t: => Stream[T]): SimpleStream[T] = SCons(h, t)
+  
+  def apply[T](as: T*): SimpleStream[T] = as match
+    case Seq() => SNil
+    case Seq(h, as: _*) => SCons(h, () => apply(as: _*))
+      
+  def repeat[T](a: T): SimpleStream[T] = SCons(a, repeat(a))
 end SimpleStream
