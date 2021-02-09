@@ -19,3 +19,7 @@ class SimpleStreamSpec extends AnyFunSuite with Matchers:
     SCons(1, SCons(2, SCons(3, SNil))).reverse.head shouldBe 3
   }
 
+  test("#++") {
+    (SCons(1, SCons(2, SCons(3, SNil))) ++ SimpleStream.repeat(4)).drop(3).head shouldBe 4
+      
+  }
