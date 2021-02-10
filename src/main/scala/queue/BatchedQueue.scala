@@ -29,3 +29,5 @@ case class BatchedQueue[+T](private val front: List[T], private val rear: List[T
     case Nil => throw new Exception("Empty Queue")
     case x :: xs => checkFront(xs, rear)
   
+object BatchedQueue:
+  def empty[T]: BatchedQueue[T] = BatchedQueue(Nil, Nil)
