@@ -1,4 +1,4 @@
-package dequeue
+package queue
 
 case class TwoListDequeue[+T](front: List[T], rear: List[T]) extends Dequeue[T, TwoListDequeue]:
   override def isEmpty: Boolean = (front, rear) match

@@ -1,4 +1,4 @@
-package dequeue
+package queue
 
 trait Dequeue[+T, This[+T] <: Dequeue[T, ?]]:
   def isEmpty: Boolean
