@@ -3,8 +3,8 @@ package queue
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class BatchedQueueSpec extends AnyFunSuite with Matchers: 
-  test("#isEmpty") { 
+class BatchedQueueSpec extends AnyFunSuite with Matchers:
+  test("#isEmpty") {
     BatchedQueue.empty.isEmpty shouldBe true
     BatchedQueue(List(1), Nil).isEmpty shouldBe false
   }
