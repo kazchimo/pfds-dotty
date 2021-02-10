@@ -1,6 +1,8 @@
 package dequeue
 
 trait Dequeue[+T, This[+T] <: Dequeue[T, ?]]:
+  def isEmpty: Boolean
+  
   def +:[S >: T](a: S): This[S]
 
   def head: T
