@@ -1,5 +1,12 @@
 package queue
 
+/** 
+ * A Queue implementation which operates in amortized O(1).
+ * `isEmpty`, `head` and `tail` are originally O(1).
+ * And `:+` can be regarted as amortized O(1) by baker's method.  
+ * When `:+` is called save up 1 credit in addition to the original cost (so amortized cost should be 2), 
+ * and use that credit when `rear.reverse` occurred.
+ * */
 case class BatchedQueue[+T](private val front: List[T], private val rear: List[T]) 
   extends Queue[T, BatchedQueue]:
   override def isEmpty: Boolean = front.isEmpty 
