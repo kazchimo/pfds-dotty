@@ -21,5 +21,4 @@ class SimpleStreamSpec extends AnyFunSuite with Matchers:
 
   test("#++") {
     (SCons(1, SCons(2, SCons(3, SNil))) ++ SimpleStream.repeat(4)).drop(3).head shouldBe 4
-      
   }
