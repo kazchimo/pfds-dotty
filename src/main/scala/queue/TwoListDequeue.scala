@@ -37,7 +37,7 @@ case class TwoListDequeue[+T](front: List[T], rear: List[T]) extends Dequeue[T, 
   
   private def checkFront[S](front: List[S], rear: List[S]): TwoListDequeue[S] =
     (front, rear) match
-      case (Nil, xs) => TwoListDequeue(xs.take(xs.length / 2).reverse, xs.drop(xs.length / 2))
+      case (Nil, xs) => TwoListDequeue(xs.drop((xs.length + 1) / 2).reverse, xs.take((xs.length + 1) / 2))
       case _ => TwoListDequeue(front, rear)
 
   private def checkRear[S](front: List[S], rear: List[S]): TwoListDequeue[S] =
@@ -46,3 +46,10 @@ end TwoListDequeue
 
 object TwoListDequeue:
   def empty[T]: TwoListDequeue[T] = TwoListDequeue(Nil, Nil)
+
+  def front[T](a: T): TwoListDequeue[T] = TwoListDequeue(List(a), Nil)
+
+  def rear[T](a: T): TwoListDequeue[T] = TwoListDequeue(Nil, List(a))
+
+  def apply[T](front: T*)(rear: T*): TwoListDequeue[T] =
+    TwoListDequeue(front.toList, rear.reverse.toList)
